@@ -1,0 +1,2128 @@
+{
+ "meta": {
+  "generated_at": "2026-09-20T07:46:14+00:00",
+  "source": "U.S. Energy Information Administration, Form EIA-860M (monthly generator inventory)",
+  "source_files": {
+   "oahu": "july_generator2026.xlsx"
+  },
+  "groups": [
+   {
+    "key": "solar",
+    "label": "Solar"
+   },
+   {
+    "key": "wind",
+    "label": "Wind"
+   },
+   {
+    "key": "battery",
+    "label": "Battery storage"
+   },
+   {
+    "key": "waste",
+    "label": "Waste & biomass"
+   },
+   {
+    "key": "oil",
+    "label": "Oil"
+   },
+   {
+    "key": "coal",
+    "label": "Coal"
+   },
+   {
+    "key": "other",
+    "label": "Other"
+   }
+  ],
+  "warnings": []
+ },
+ "regions": {
+  "oahu": {
+   "label": "Oʻahu",
+   "first_month": "1947-12",
+   "as_of": "2026-07",
+   "last_planned_month": "2029-04",
+   "battery_fleet": {
+    "power_mw": 326.4,
+    "energy_mwh": 1124.9,
+    "energy_mwh_as_filed": 985.5,
+    "units_missing_energy": [],
+    "units": [
+     {
+      "plant": "Kapolei Energy Storage",
+      "plant_code": "66067",
+      "unit": "KES1",
+      "online": "2023-12",
+      "power_mw": 185.0,
+      "energy_mwh": 565.0,
+      "energy_mwh_as_filed": 565.0,
+      "corrected": false
+     },
+     {
+      "plant": "Ho'Ohana Solar 1",
+      "plant_code": "63723",
+      "unit": "HESS1",
+      "online": "2025-07",
+      "power_mw": 52.0,
+      "energy_mwh": 208.0,
+      "energy_mwh_as_filed": 208.0,
+      "corrected": false
+     },
+     {
+      "plant": "Mililani South Solar Farm",
+      "plant_code": "57242",
+      "unit": "2",
+      "online": "2022-07",
+      "power_mw": 39.0,
+      "energy_mwh": 156.0,
+      "energy_mwh_as_filed": 156.0,
+      "corrected": false
+     },
+     {
+      "plant": "Waiawa Solar Power Hybrid",
+      "plant_code": "65058",
+      "unit": "WAIBA",
+      "online": "2023-01",
+      "power_mw": 36.0,
+      "energy_mwh": 144.0,
+      "energy_mwh_as_filed": 4.6,
+      "corrected": true
+     },
+     {
+      "plant": "AES West Oahu Solar Hybrid",
+      "plant_code": "64656",
+      "unit": "UHBES",
+      "online": "2024-03",
+      "power_mw": 12.5,
+      "energy_mwh": 50.0,
+      "energy_mwh_as_filed": 50.0,
+      "corrected": false
+     },
+     {
+      "plant": "BYU - Hawaii",
+      "plant_code": "64400",
+      "unit": "BYESS",
+      "online": "2021-11",
+      "power_mw": 1.9,
+      "energy_mwh": 1.9,
+      "energy_mwh_as_filed": 1.9,
+      "corrected": false
+     }
+    ]
+   }
+  }
+ },
+ "plants": [
+  {
+   "region": "oahu",
+   "code": "766",
+   "name": "Waiau",
+   "owner": "Hawaiian Electric Co Inc",
+   "sector": "Electric Utility",
+   "lat": 21.388997,
+   "lon": -157.9615,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "W3",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 50.0,
+     "mwh": null,
+     "online": "1947-12",
+     "retired": "2024-12",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "W4",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 50.0,
+     "mwh": null,
+     "online": "1950-10",
+     "retired": "2024-12",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "W5",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 54.4,
+     "mwh": null,
+     "online": "1959-09",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "W6",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 54.4,
+     "mwh": null,
+     "online": "1961-06",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "W7",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 81.6,
+     "mwh": null,
+     "online": "1966-10",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "W8",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 81.6,
+     "mwh": null,
+     "online": "1968-11",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "W9",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 51.3,
+     "mwh": null,
+     "online": "1973-06",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "W10",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 51.3,
+     "mwh": null,
+     "online": "1973-12",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "764",
+   "name": "Honolulu",
+   "owner": "Hawaiian Electric Co Inc",
+   "sector": "Electric Utility",
+   "lat": 21.3068,
+   "lon": -157.8819,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "H8",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 50.0,
+     "mwh": null,
+     "online": "1954-12",
+     "retired": "2014-01",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "H9",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 54.4,
+     "mwh": null,
+     "online": "1957-11",
+     "retired": "2014-01",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "765",
+   "name": "Kahe",
+   "owner": "Hawaiian Electric Co Inc",
+   "sector": "Electric Utility",
+   "lat": 21.356395,
+   "lon": -158.1289,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "K1",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 81.6,
+     "mwh": null,
+     "online": "1963-03",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "K2",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 81.6,
+     "mwh": null,
+     "online": "1964-09",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "K3",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 85.8,
+     "mwh": null,
+     "online": "1970-08",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "K4",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 90.9,
+     "mwh": null,
+     "online": "1972-06",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "K5",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 134.9,
+     "mwh": null,
+     "online": "1974-12",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "K6",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 134.9,
+     "mwh": null,
+     "online": "1981-03",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "10093",
+   "name": "Tesoro Hawaii",
+   "owner": "PAR Petroleum",
+   "sector": "Industrial CHP",
+   "lat": 21.303229,
+   "lon": -158.0914,
+   "counted_in_share_chart": false,
+   "excluded_reason": "Refinery cogeneration (EIA sector: industrial CHP) - self-generation, not grid supply",
+   "units": [
+    {
+     "id": "GEN1",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 20.0,
+     "mwh": null,
+     "online": "1982-12",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "54646",
+   "name": "Kalaeloa Cogen Plant",
+   "owner": "Kalaeloa Partners LP",
+   "sector": "IPP CHP",
+   "lat": 21.302106,
+   "lon": -158.0963,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "CT1",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 119.2,
+     "mwh": null,
+     "online": "1989-10",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "CT2",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 119.2,
+     "mwh": null,
+     "online": "1991-01",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "ST",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 61.0,
+     "mwh": null,
+     "online": "1991-03",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "10334",
+   "name": "H Power",
+   "owner": "Covanta Honolulu Resource Recovery",
+   "sector": "Commercial Non-CHP",
+   "lat": 21.300036,
+   "lon": -158.0986,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "GEN1",
+     "technology": "Municipal Solid Waste",
+     "group": "waste",
+     "mw": 63.7,
+     "mwh": null,
+     "online": "1989-11",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "GEN2",
+     "technology": "Municipal Solid Waste",
+     "group": "waste",
+     "mw": 33.6,
+     "mwh": null,
+     "online": "2013-02",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "PV1",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 2.9,
+     "mwh": null,
+     "online": "2020-06",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "10194",
+   "name": "Hawaii Cogen",
+   "owner": "Island Energy Services",
+   "sector": "Industrial CHP",
+   "lat": 21.311667,
+   "lon": -158.1139,
+   "counted_in_share_chart": false,
+   "excluded_reason": "Refinery cogeneration (EIA sector: industrial CHP) - self-generation, not grid supply",
+   "units": [
+    {
+     "id": "GEN1",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 3.0,
+     "mwh": null,
+     "online": "1990-08",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "GEN2",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 3.0,
+     "mwh": null,
+     "online": "1990-08",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "GEN3",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 3.0,
+     "mwh": null,
+     "online": "1990-08",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "GEN4",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 3.2,
+     "mwh": null,
+     "online": "2011-06",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "54405",
+   "name": "Kapaa Hawaii",
+   "owner": "Kapaa Generating Partners",
+   "sector": "IPP Non-CHP",
+   "lat": 21.34,
+   "lon": -157.9211,
+   "counted_in_share_chart": false,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "1",
+     "technology": "Landfill Gas",
+     "group": "waste",
+     "mw": 3.0,
+     "mwh": null,
+     "online": "1990-12",
+     "retired": "2002-03",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "10673",
+   "name": "AES Hawaii",
+   "owner": "AES Hawaii LLC",
+   "sector": "IPP CHP",
+   "lat": 21.303419,
+   "lon": -158.1065,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "GEN1",
+     "technology": "Conventional Steam Coal",
+     "group": "coal",
+     "mw": 203.0,
+     "mwh": null,
+     "online": "1992-05",
+     "retired": "2022-09",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "56330",
+   "name": "Ewa Nui Substation DG",
+   "owner": "Hawaiian Electric Co Inc",
+   "sector": "Electric Utility",
+   "lat": 21.3756,
+   "lon": -158.0478,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "DG1",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 1.6,
+     "mwh": null,
+     "online": "2005-10",
+     "retired": "2010-04",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "DG2",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 1.6,
+     "mwh": null,
+     "online": "2005-10",
+     "retired": "2010-04",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "DG3",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 1.6,
+     "mwh": null,
+     "online": "2005-10",
+     "retired": "2010-04",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "DG4",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 1.6,
+     "mwh": null,
+     "online": "2007-05",
+     "retired": "2010-04",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "DG5",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 1.6,
+     "mwh": null,
+     "online": "2007-05",
+     "retired": "2010-04",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "DG6",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 1.6,
+     "mwh": null,
+     "online": "2007-05",
+     "retired": "2010-04",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "56332",
+   "name": "Helemano Substation DG",
+   "owner": "Hawaiian Electric Co Inc",
+   "sector": "Electric Utility",
+   "lat": 21.5292,
+   "lon": -158.0458,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "DG1",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 1.6,
+     "mwh": null,
+     "online": "2005-11",
+     "retired": "2010-04",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "DG2",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 1.6,
+     "mwh": null,
+     "online": "2005-11",
+     "retired": "2010-04",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "DG3",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 1.6,
+     "mwh": null,
+     "online": "2005-11",
+     "retired": "2010-04",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "56331",
+   "name": "Iwilei Tank Farm DG",
+   "owner": "Hawaiian Electric Co Inc",
+   "sector": "Electric Utility",
+   "lat": 21.3169,
+   "lon": -157.8764,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "DG1",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 1.6,
+     "mwh": null,
+     "online": "2005-11",
+     "retired": "2010-04",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "DG2",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 1.6,
+     "mwh": null,
+     "online": "2005-11",
+     "retired": "2010-04",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "DG3",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 1.6,
+     "mwh": null,
+     "online": "2005-11",
+     "retired": "2010-04",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "56515",
+   "name": "CEIP Substation Distributed Generation",
+   "owner": "Hawaiian Electric Co Inc",
+   "sector": "Electric Utility",
+   "lat": 21.3278,
+   "lon": -158.0964,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "DG1",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 1.6,
+     "mwh": null,
+     "online": "2006-11",
+     "retired": "2010-04",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "DG2",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 1.6,
+     "mwh": null,
+     "online": "2006-11",
+     "retired": "2010-04",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "DG3",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 1.6,
+     "mwh": null,
+     "online": "2006-11",
+     "retired": "2010-04",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "56514",
+   "name": "Kalaeoloa Pole Yard DG",
+   "owner": "Hawaiian Electric Co Inc",
+   "sector": "Electric Utility",
+   "lat": 21.3014,
+   "lon": -158.0958,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "DG1",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 1.6,
+     "mwh": null,
+     "online": "2006-12",
+     "retired": "2010-04",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "DG2",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 1.6,
+     "mwh": null,
+     "online": "2006-12",
+     "retired": "2010-04",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "DG3",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 1.6,
+     "mwh": null,
+     "online": "2006-12",
+     "retired": "2010-04",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "56329",
+   "name": "Campbell Industrial Park",
+   "owner": "Hawaiian Electric Co Inc",
+   "sector": "Electric Utility",
+   "lat": 21.3025,
+   "lon": -158.1017,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "CIP1",
+     "technology": "Petroleum Liquids",
+     "group": "oil",
+     "mw": 113.0,
+     "mwh": null,
+     "online": "2009-07",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "57087",
+   "name": "Kahuku Wind Power LLC",
+   "owner": "Evergreen Wind, LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.68097,
+   "lon": -157.975,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "1",
+     "technology": "Onshore Wind Turbine",
+     "group": "wind",
+     "mw": 30.0,
+     "mwh": null,
+     "online": "2011-03",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "2",
+     "technology": "Batteries",
+     "group": "battery",
+     "mw": 15.0,
+     "mwh": 15.0,
+     "online": "2011-03",
+     "retired": "2013-08",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "58684",
+   "name": "Kapolei Solar Energy Park",
+   "owner": "Altus Power America Management, LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.321111,
+   "lon": -158.1175,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "KSEPV",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 1.0,
+     "mwh": null,
+     "online": "2012-02",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "57529",
+   "name": "Kawailoa Wind",
+   "owner": "Kawailoa Wind LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.610278,
+   "lon": -158.0408,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "1",
+     "technology": "Onshore Wind Turbine",
+     "group": "wind",
+     "mw": 69.0,
+     "mwh": null,
+     "online": "2012-11",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "58676",
+   "name": "Pearl City Peninsula Solar Park",
+   "owner": "Altus Power America Management, LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.375556,
+   "lon": -157.9681,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "PCPPV",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 1.0,
+     "mwh": null,
+     "online": "2012-11",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "58259",
+   "name": "Kalaeloa Solar Two",
+   "owner": "Altus Power America Management, LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.32,
+   "lon": -158.0869,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "KAS2",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 5.0,
+     "mwh": null,
+     "online": "2012-12",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "58651",
+   "name": "Kalaeloa Renewable Energy Park",
+   "owner": "ENI New Energy US Inc",
+   "sector": "IPP Non-CHP",
+   "lat": 21.328056,
+   "lon": -158.04,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "KREP",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 5.0,
+     "mwh": null,
+     "online": "2014-01",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "64190",
+   "name": "Waipio Peninsula",
+   "owner": "Pacific Energy Solutions, LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.363514,
+   "lon": -157.9856,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "82803",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 11.0,
+     "mwh": null,
+     "online": "2015-10",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "61851",
+   "name": "Campbell Industrial Park BESS",
+   "owner": "Hawaiian Electric Co Inc",
+   "sector": "Electric Utility",
+   "lat": 21.3064,
+   "lon": -158.105,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "CIPB1",
+     "technology": "Batteries",
+     "group": "battery",
+     "mw": 1.0,
+     "mwh": 0.3,
+     "online": "2016-03",
+     "retired": "2020-02",
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "58655",
+   "name": "Waihonu North Solar",
+   "owner": "ERCAM LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.470556,
+   "lon": -158.0133,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "INV-1",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 0.5,
+     "mwh": null,
+     "online": "2016-07",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "INV-2",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 0.5,
+     "mwh": null,
+     "online": "2016-07",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "INV-3",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 0.5,
+     "mwh": null,
+     "online": "2016-07",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "INV-4",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 0.5,
+     "mwh": null,
+     "online": "2016-07",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "INV-5",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 0.5,
+     "mwh": null,
+     "online": "2016-07",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "INV-6",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 0.5,
+     "mwh": null,
+     "online": "2016-07",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "INV-7",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 0.5,
+     "mwh": null,
+     "online": "2016-07",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "INV-8",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 0.5,
+     "mwh": null,
+     "online": "2016-07",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "INV-9",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 0.5,
+     "mwh": null,
+     "online": "2016-07",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "INV10",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 0.5,
+     "mwh": null,
+     "online": "2016-07",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "58656",
+   "name": "Waihonu South Solar",
+   "owner": "ERCAM LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.468889,
+   "lon": -158.0164,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "INV-1",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 0.5,
+     "mwh": null,
+     "online": "2016-07",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "INV-2",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 0.5,
+     "mwh": null,
+     "online": "2016-07",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "INV-3",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 0.5,
+     "mwh": null,
+     "online": "2016-07",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "61172",
+   "name": "EE Waianae Solar Project",
+   "owner": "EE Waianae Solar Project LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.452002,
+   "lon": -158.1879,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "WAIAN",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 28.3,
+     "mwh": null,
+     "online": "2017-01",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "58659",
+   "name": "Aloha Solar Energy Fund 1 PK1",
+   "owner": "Altus Power America Management, LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.406944,
+   "lon": -158.1514,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "PK-1",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 5.0,
+     "mwh": null,
+     "online": "2017-03",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "58469",
+   "name": "HNL Emergency Power Facility",
+   "owner": "Hawaiian Electric Co Inc",
+   "sector": "Electric Utility",
+   "lat": 21.336389,
+   "lon": -157.9194,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "AP1",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 2.5,
+     "mwh": null,
+     "online": "2017-06",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "AP2",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 2.5,
+     "mwh": null,
+     "online": "2017-06",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "AP3",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 2.5,
+     "mwh": null,
+     "online": "2017-06",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "AP4",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 2.5,
+     "mwh": null,
+     "online": "2017-06",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "60328",
+   "name": "Schofield Generating Station",
+   "owner": "Hawaiian Electric Co Inc",
+   "sector": "Electric Utility",
+   "lat": 21.4785,
+   "lon": -158.0581,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "S1",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 8.4,
+     "mwh": null,
+     "online": "2018-06",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "S2",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 8.4,
+     "mwh": null,
+     "online": "2018-06",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "S3",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 8.4,
+     "mwh": null,
+     "online": "2018-06",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "S4",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 8.4,
+     "mwh": null,
+     "online": "2018-06",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "S5",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 8.4,
+     "mwh": null,
+     "online": "2018-06",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "S6",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 8.4,
+     "mwh": null,
+     "online": "2018-06",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "58281",
+   "name": "Lanikuhana Solar LLC",
+   "owner": "Lanikuhana Solar LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.4287,
+   "lon": -158.0236,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "1",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 14.7,
+     "mwh": null,
+     "online": "2019-09",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "60024",
+   "name": "Waipio Solar",
+   "owner": "Waipio PV, LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.456,
+   "lon": -157.982,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "WPO",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 45.9,
+     "mwh": null,
+     "online": "2019-09",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "60125",
+   "name": "Kawailoa Solar",
+   "owner": "Kawailoa Solar, LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.624,
+   "lon": -158.055,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "KAWS",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 49.0,
+     "mwh": null,
+     "online": "2019-11",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "61987",
+   "name": "West Loch Solar One",
+   "owner": "Hawaiian Electric Co Inc",
+   "sector": "Electric Utility",
+   "lat": 21.340339,
+   "lon": -158.0151,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "WLS1",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 20.0,
+     "mwh": null,
+     "online": "2019-11",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "58662",
+   "name": "Mauka FIT One",
+   "owner": "Valta Energy",
+   "sector": "IPP Non-CHP",
+   "lat": 21.679722,
+   "lon": -157.9844,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "3501",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 3.5,
+     "mwh": null,
+     "online": "2020-10",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "58837",
+   "name": "Na Pua Makani Wind Project",
+   "owner": "Na Pua Makani Power Partners LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.666944,
+   "lon": -157.97,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "WT1",
+     "technology": "Onshore Wind Turbine",
+     "group": "wind",
+     "mw": 27.6,
+     "mwh": null,
+     "online": "2020-12",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "64400",
+   "name": "BYU - Hawaii",
+   "owner": "SkyHigh 2 Solar",
+   "sector": "IPP Non-CHP",
+   "lat": 21.640774,
+   "lon": -157.9251,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "BYESS",
+     "technology": "Batteries",
+     "group": "battery",
+     "mw": 1.9,
+     "mwh": 1.9,
+     "online": "2021-11",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "BYUHI",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 3.1,
+     "mwh": null,
+     "online": "2021-11",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "57242",
+   "name": "Mililani South Solar Farm",
+   "owner": "Mililani I Solar LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.427916,
+   "lon": -158.0199,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "1",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 39.0,
+     "mwh": null,
+     "online": "2022-07",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "2",
+     "technology": "Batteries",
+     "group": "battery",
+     "mw": 39.0,
+     "mwh": 156.0,
+     "online": "2022-07",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "65058",
+   "name": "Waiawa Solar Power Hybrid",
+   "owner": "Waiawa Solar Power LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.420069,
+   "lon": -157.9707,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "WAIBA",
+     "technology": "Batteries",
+     "group": "battery",
+     "mw": 36.0,
+     "mwh": 144.0,
+     "online": "2023-01",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": [
+      {
+       "field": "energy_mwh",
+       "as_filed": 4.6,
+       "used": 144.0,
+       "reason": "EIA-860M lists this 36 MW battery as 4.6 MWh (max discharge 2.3 MW), which is not physically plausible; the developer reports 144 MWh of storage.",
+       "source": "https://www.clearwayhawaii.com/operational-projects-2/waiawa"
+      }
+     ]
+    },
+    {
+     "id": "WAIPV",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 36.0,
+     "mwh": null,
+     "online": "2023-01",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "66067",
+   "name": "Kapolei Energy Storage",
+   "owner": "Kapolei Energy Storage I, LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.328403,
+   "lon": -158.1052,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "KES1",
+     "technology": "Batteries",
+     "group": "battery",
+     "mw": 185.0,
+     "mwh": 565.0,
+     "online": "2023-12",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "64656",
+   "name": "AES West Oahu Solar Hybrid",
+   "owner": "AES Distributed Energy",
+   "sector": "IPP Non-CHP",
+   "lat": 21.372,
+   "lon": -158.062,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "UHBES",
+     "technology": "Batteries",
+     "group": "battery",
+     "mw": 12.5,
+     "mwh": 50.0,
+     "online": "2024-03",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "UHWO",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 12.5,
+     "mwh": null,
+     "online": "2024-03",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "63723",
+   "name": "Ho'Ohana Solar 1",
+   "owner": "Ho'Ohana Solar 1 LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.418811,
+   "lon": -158.0329,
+   "counted_in_share_chart": true,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "H0001",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 65.3,
+     "mwh": null,
+     "online": "2025-07",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    },
+    {
+     "id": "HESS1",
+     "technology": "Batteries",
+     "group": "battery",
+     "mw": 52.0,
+     "mwh": 208.0,
+     "online": "2025-07",
+     "retired": null,
+     "planned": false,
+     "status": null,
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "66066",
+   "name": "AES Waiawa Phase 2 Solar",
+   "owner": "AES Distributed Energy",
+   "sector": "IPP Non-CHP",
+   "lat": 21.43026,
+   "lon": -157.9779,
+   "counted_in_share_chart": false,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "WAIBA",
+     "technology": "Batteries",
+     "group": "battery",
+     "mw": 30.0,
+     "mwh": null,
+     "online": "2026-09",
+     "retired": null,
+     "planned": true,
+     "status": "Under construction, more than 50 percent complete",
+     "corrections": []
+    },
+    {
+     "id": "WAIPV",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 30.0,
+     "mwh": null,
+     "online": "2026-09",
+     "retired": null,
+     "planned": true,
+     "status": "Under construction, more than 50 percent complete",
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "69766",
+   "name": "Kalaeloa Home Lands Solar",
+   "owner": "Pivot Energy",
+   "sector": "IPP Non-CHP",
+   "lat": 21.310594,
+   "lon": -158.0863,
+   "counted_in_share_chart": false,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "KHLS",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 1.7,
+     "mwh": null,
+     "online": "2026-09",
+     "retired": null,
+     "planned": true,
+     "status": "Under construction, more than 50 percent complete",
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "66002",
+   "name": "AES Mountain View Solar",
+   "owner": "AES Distributed Energy",
+   "sector": "IPP Non-CHP",
+   "lat": 21.45799,
+   "lon": -158.1767,
+   "counted_in_share_chart": false,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "MVSBA",
+     "technology": "Batteries",
+     "group": "battery",
+     "mw": 7.0,
+     "mwh": null,
+     "online": "2026-11",
+     "retired": null,
+     "planned": true,
+     "status": "Under construction, more than 50 percent complete",
+     "corrections": []
+    },
+    {
+     "id": "MVSPV",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 7.0,
+     "mwh": null,
+     "online": "2026-11",
+     "retired": null,
+     "planned": true,
+     "status": "Under construction, more than 50 percent complete",
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "68285",
+   "name": "Puuloa Solar",
+   "owner": "Puuloa Solar LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.351522,
+   "lon": -157.9269,
+   "counted_in_share_chart": false,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "PS-1",
+     "technology": "Solar Photovoltaic",
+     "group": "solar",
+     "mw": 6.4,
+     "mwh": null,
+     "online": "2027-11",
+     "retired": null,
+     "planned": true,
+     "status": "Planned for installation, but regulatory approvals not initiated",
+     "corrections": []
+    },
+    {
+     "id": "PS-2",
+     "technology": "Batteries",
+     "group": "battery",
+     "mw": 6.0,
+     "mwh": null,
+     "online": "2027-11",
+     "retired": null,
+     "planned": true,
+     "status": "Planned for installation, but regulatory approvals not initiated",
+     "corrections": []
+    }
+   ]
+  },
+  {
+   "region": "oahu",
+   "code": "68284",
+   "name": "Puuloa Energy",
+   "owner": "Puuloa Energy LLC",
+   "sector": "IPP Non-CHP",
+   "lat": 21.347833,
+   "lon": -157.9506,
+   "counted_in_share_chart": false,
+   "excluded_reason": null,
+   "units": [
+    {
+     "id": "PE-1",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 9.4,
+     "mwh": null,
+     "online": "2029-04",
+     "retired": null,
+     "planned": true,
+     "status": "Planned for installation, but regulatory approvals not initiated",
+     "corrections": []
+    },
+    {
+     "id": "PE-10",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 9.4,
+     "mwh": null,
+     "online": "2029-04",
+     "retired": null,
+     "planned": true,
+     "status": "Planned for installation, but regulatory approvals not initiated",
+     "corrections": []
+    },
+    {
+     "id": "PE-11",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 9.4,
+     "mwh": null,
+     "online": "2029-04",
+     "retired": null,
+     "planned": true,
+     "status": "Planned for installation, but regulatory approvals not initiated",
+     "corrections": []
+    },
+    {
+     "id": "PE-2",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 9.4,
+     "mwh": null,
+     "online": "2029-04",
+     "retired": null,
+     "planned": true,
+     "status": "Planned for installation, but regulatory approvals not initiated",
+     "corrections": []
+    },
+    {
+     "id": "PE-3",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 9.4,
+     "mwh": null,
+     "online": "2029-04",
+     "retired": null,
+     "planned": true,
+     "status": "Planned for installation, but regulatory approvals not initiated",
+     "corrections": []
+    },
+    {
+     "id": "PE-4",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 9.4,
+     "mwh": null,
+     "online": "2029-04",
+     "retired": null,
+     "planned": true,
+     "status": "Planned for installation, but regulatory approvals not initiated",
+     "corrections": []
+    },
+    {
+     "id": "PE-5",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 9.4,
+     "mwh": null,
+     "online": "2029-04",
+     "retired": null,
+     "planned": true,
+     "status": "Planned for installation, but regulatory approvals not initiated",
+     "corrections": []
+    },
+    {
+     "id": "PE-6",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 9.4,
+     "mwh": null,
+     "online": "2029-04",
+     "retired": null,
+     "planned": true,
+     "status": "Planned for installation, but regulatory approvals not initiated",
+     "corrections": []
+    },
+    {
+     "id": "PE-7",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 9.4,
+     "mwh": null,
+     "online": "2029-04",
+     "retired": null,
+     "planned": true,
+     "status": "Planned for installation, but regulatory approvals not initiated",
+     "corrections": []
+    },
+    {
+     "id": "PE-8",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 9.4,
+     "mwh": null,
+     "online": "2029-04",
+     "retired": null,
+     "planned": true,
+     "status": "Planned for installation, but regulatory approvals not initiated",
+     "corrections": []
+    },
+    {
+     "id": "PE-9",
+     "technology": "Other Waste Biomass",
+     "group": "waste",
+     "mw": 9.4,
+     "mwh": null,
+     "online": "2029-04",
+     "retired": null,
+     "planned": true,
+     "status": "Planned for installation, but regulatory approvals not initiated",
+     "corrections": []
+    }
+   ]
+  }
+ ]
+}

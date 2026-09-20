@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hawaiʻi grid: renewable share</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <main class="page page-wide">
+      <nav class="site-nav" aria-label="Charts">
+        <a href="index.html" aria-current="page">Renewable share</a>
+        <a href="duck_curve.html">Duck curve</a>
+        <a href="curtailment.html">Curtailment</a>
+        <a href="battery.html">Battery</a>
+        <a href="map.html">Plant map</a>
+      </nav>
+
+      <h1 id="title">Renewable share of electricity generation</h1>
+      <p class="subtitle" id="subtitle">Loading…</p>
+
+      <div class="with-panel">
+        <div>
+          <section class="card">
+            <div id="chart" role="img" aria-label="Line chart of renewable share of generation by month."></div>
+          </section>
+
+          <section class="milestones" id="milestones" aria-labelledby="milestones-heading" hidden>
+            <h2 id="milestones-heading">Milestones</h2>
+            <p class="milestone-hint">Click a numbered diamond on the chart, or pick one here, to see what happened.</p>
+            <div class="milestone-buttons" id="milestone-buttons" role="group" aria-label="Milestones"></div>
+            <article class="plant-card milestone-card" id="milestone-card" aria-live="polite"></article>
+          </section>
+        </div>
+
+        <aside class="info-panel" aria-labelledby="about-heading">
+          <h2 id="about-heading">About this data</h2>
+          <dl class="facts">
+            <dt>Source</dt>
+            <dd>The U.S. Energy Information Administration (EIA), Form EIA-923: what each power plant reports it generated, each month.</dd>
+            <dt>What the main line counts</dt>
+            <dd>Utility-scale plants (1 MW or larger). Rooftop and other small solar systems are not in it; the dotted line adds an estimate of them.</dd>
+            <dt>“Renewable” here</dt>
+            <dd>Solar plus wind only. EIA's own renewable category also includes hydro, biomass and geothermal, and Oʻahu's waste-to-energy plant is not counted here.</dd>
+            <dt>How fresh</dt>
+            <dd>The newest months are about three months old and preliminary (shaded on the chart).</dd>
+          </dl>
+
+          <details>
+            <summary>Learn more about the data collection</summary>
+
+            <h3>Who reports, and how often</h3>
+            <p>
+              Power plant operators file Form EIA-923 with EIA. By EIA's own count about 3,000 plants across the
+              U.S. report every month and about 9,500 more report once a year. On Oʻahu the large plants report
+              monthly, but about a dozen small plants (mostly solar farms) report only annually.
+            </p>
+
+            <h3>What is reported</h3>
+            <p>
+              Each plant reports the electricity it generated, split by fuel and by type of engine, in
+              megawatt-hours (net of the plant's own use), along with the fuel it burned. This chart uses the
+              generation numbers for the 38 plants that EIA places on Oʻahu's grid. Batteries appear too: when
+              a battery charges it shows up as negative generation, so it is left out of the totals.
+            </p>
+
+            <h3>When the data arrives, and why recent months are provisional</h3>
+            <p>
+              Monthly figures appear about two to three months after the month ends. Final figures for a whole
+              year appear roughly a year later, after EIA checks them and adds the plants that report annually.
+              Until then the newest months are missing those small plants, so they read low; that is why the
+              latest months are shaded and drawn fainter. Each time the pipeline is run it fetches everything
+              again, so the chart corrects itself once EIA publishes the missing year.
+            </p>
+
+            <h3>What EIA does not count directly: rooftop solar</h3>
+            <p>
+              EIA-923 covers only plants of 1 MW or larger. Smaller solar systems, mostly rooftop panels, are
+              not reported by plant. Instead EIA <em>estimates</em> their generation for each state from
+              net-metering reports by utilities and third-party owners, and has published that estimate since
+              2014. It is for the whole state of Hawaiʻi, not for Oʻahu alone, so it has to be brought down to the
+              island. The dotted line does that with Hawaiian Electric's own reported Oʻahu rooftop total for each
+              quarter: EIA's monthly figures are scaled so that every quarter adds up to Hawaiian Electric's number
+              (Oʻahu's share of the state has ranged from about 65% to 83%, so a single fixed share would be off by
+              up to roughly 18% in some years). EIA's statewide monthly pattern only decides how each quarter's
+              total is split across its three months. It is still an estimate: Hawaiian Electric's figure counts
+              all customer-owned renewable generation, which is almost all rooftop solar. Where Hawaiian Electric
+              has not reported a quarter, a fixed 77% share is used instead. The dotted line is also a different
+              measure: rooftop energy counts on both the top and bottom of the fraction, so it shows the share of
+              <em>all</em> electricity used.
+            </p>
+
+            <h3>How this shapes what you see</h3>
+            <ul>
+              <li>The main line understates Oʻahu's true renewable share, because rooftop solar is missing from it.</li>
+              <li>Steps in the line usually mark a plant opening or closing. Kahuku Wind Power starting in 2011 and
+                the group of solar farms in 2020 are the biggest.</li>
+              <li>The latest months can dip and later be revised upward.</li>
+              <li>Oʻahu here means the plants EIA places in Honolulu County, minus two refinery cogeneration
+                plants that power the refinery rather than the grid.</li>
+              <li>EIA's plant data starts in 2001, so anything earlier, such as Oʻahu's first wind turbines,
+                is not in it.</li>
+            </ul>
+          </details>
+        </aside>
+      </div>
+
+      <ul class="notes" id="notes"></ul>
+
+      <details>
+        <summary>View the data as a table</summary>
+        <div class="table-wrap">
+          <table id="data-table"></table>
+        </div>
+      </details>
+
+      <p class="source" id="source"></p>
+    </main>
+
+    <script type="module" src="js/renewable_share.js"></script>
+  </body>
+</html>

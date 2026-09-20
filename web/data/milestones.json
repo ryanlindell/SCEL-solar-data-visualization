@@ -1,0 +1,107 @@
+{
+  "_note": "Hand-written, not produced by the pipeline. Ten events that help explain the renewable-share chart, each with its source. Dates that come from EIA-860 are checked against plants.json by tests/test_milestones.py, so they cannot drift from the data. 'month' places the marker on the chart; 'date_text' is what the card shows.",
+  "regions": {
+    "oahu": [
+      {
+        "id": "kahuku-wind",
+        "month": "2011-03",
+        "date_text": "Mar 2011",
+        "short": "Kahuku Wind",
+        "title": "Kahuku Wind starts",
+        "text": "Kahuku Wind Power starts up, 30 MW of wind with a 15 MW battery, the first Oʻahu wind in EIA's data (smaller turbines ran at Kahuku from 1985 to 1996, before EIA's records begin).",
+        "source": "EIA-860M generator inventory",
+        "url": "https://www.eia.gov/electricity/data/eia860m/"
+      },
+      {
+        "id": "first-solar",
+        "month": "2012-02",
+        "date_text": "Feb 2012",
+        "short": "First solar farm",
+        "title": "First utility-scale solar",
+        "text": "Kapolei Solar Energy Park (1 MW) becomes the first utility-scale solar farm in EIA's data, with Pearl City Peninsula (1 MW) and Kalaeloa Solar Two (5 MW) following in November and December.",
+        "source": "EIA-860M generator inventory",
+        "url": "https://www.eia.gov/electricity/data/eia860m/"
+      },
+      {
+        "id": "kawailoa-wind",
+        "month": "2012-11",
+        "date_text": "Nov 2012",
+        "short": "Kawailoa Wind",
+        "title": "Kawailoa Wind starts",
+        "text": "Kawailoa Wind (69 MW) starts up on the North Shore and remains Oʻahu's largest wind farm.",
+        "source": "EIA-860M generator inventory",
+        "url": "https://www.eia.gov/electricity/data/eia860m/"
+      },
+      {
+        "id": "honolulu-retires",
+        "month": "2014-01",
+        "date_text": "Jan 2014",
+        "short": "Honolulu plant retires",
+        "title": "Honolulu Power Plant retires",
+        "text": "The Honolulu oil-fired steam plant (104 MW, two units in service since 1954 and 1957) is retired.",
+        "source": "EIA-860M generator inventory",
+        "url": "https://www.eia.gov/electricity/data/eia860m/"
+      },
+      {
+        "id": "act-97",
+        "month": "2015-06",
+        "date_text": "Jun 2015",
+        "short": "100% renewable law",
+        "title": "Act 97 sets a 100% renewable goal",
+        "text": "Hawaiʻi's Act 97 requires 100% renewable electricity by 2045, the first such state law.",
+        "source": "Utility Dive",
+        "url": "https://www.utilitydive.com/news/hawaii-legislature-sets-100-renewable-portfolio-standard-by-2045/394804/"
+      },
+      {
+        "id": "net-metering-ends",
+        "month": "2015-10",
+        "date_text": "Oct 2015",
+        "short": "Net metering ends",
+        "title": "Net metering closes to new customers",
+        "text": "The Public Utilities Commission stops taking new rooftop-solar customers into net metering (cutoff October 12), the program that credited owners at the retail rate for power sent to the grid.",
+        "source": "pv magazine",
+        "url": "https://www.pv-magazine.com/2015/10/14/hawaii-shuts-down-net-metering-to-new-customers_100021550/"
+      },
+      {
+        "id": "four-solar-farms",
+        "month": "2019-09",
+        "date_text": "Sep–Nov 2019",
+        "short": "Four solar farms",
+        "title": "Four solar farms come online",
+        "text": "Waipio Solar (46 MW), Kawailoa Solar (49 MW), West Loch Solar One (20 MW) and Lanikuhana Solar (15 MW) start up within three months, about 130 MW in all.",
+        "source": "EIA-860M generator inventory",
+        "url": "https://www.eia.gov/electricity/data/eia860m/"
+      },
+      {
+        "id": "na-pua-makani",
+        "month": "2020-12",
+        "date_text": "Dec 2020",
+        "short": "Nā Pua Makani wind",
+        "title": "Nā Pua Makani wind starts",
+        "text": "Nā Pua Makani (27.6 MW), Oʻahu's newest wind farm, starts up at Kahuku.",
+        "source": "EIA-860M generator inventory",
+        "url": "https://www.eia.gov/electricity/data/eia860m/"
+      },
+      {
+        "id": "aes-coal",
+        "month": "2022-09",
+        "date_text": "Sep 1, 2022",
+        "short": "Last coal plant closes",
+        "title": "AES coal plant closes",
+        "text": "AES Hawaii's 203 MW coal plant, in service since 1992, shuts down on September 1, ending coal power in Hawaiʻi.",
+        "source": "Hawaiʻi Public Radio",
+        "url": "https://www.hawaiipublicradio.org/local-news/2022-09-01/oahu-dumps-coal-rebounds-with-oil-longs-for-solar"
+      },
+      {
+        "id": "kapolei-storage",
+        "month": "2023-12",
+        "date_text": "Dec 2023",
+        "short": "Kapolei battery",
+        "title": "Kapolei Energy Storage starts",
+        "text": "Kapolei Energy Storage (185 MW / 565 MWh), Oʻahu's largest battery, starts up.",
+        "source": "EIA-860M generator inventory; Utility Dive",
+        "url": "https://www.utilitydive.com/news/plus-power-energy-storage-online-hawaii-HECO-rolling-blackouts/704561/"
+      }
+    ]
+  }
+}

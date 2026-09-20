@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hawaiʻi grid: curtailment</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="site-nav" aria-label="Charts">
+        <a href="index.html">Renewable share</a>
+        <a href="duck_curve.html">Duck curve</a>
+        <a href="curtailment.html" aria-current="page">Curtailment</a>
+        <a href="battery.html">Battery</a>
+        <a href="map.html">Plant map</a>
+      </nav>
+
+      <h1><span id="title">Solar and wind that could have been used</span><span class="tag">Reported</span></h1>
+      <p class="subtitle" id="subtitle">Loading…</p>
+
+      <div class="stats" id="stats"></div>
+
+      <section class="card" style="margin-top: 16px">
+        <h2>Potential vs. actual</h2>
+        <p class="chart-desc">
+          Energy the grid took from wind and utility-scale solar plants, plus the energy it asked them to hold back.
+          Together they are what the plants could have supplied.
+        </p>
+        <div id="chart-energy" class="chart" style="height: 470px" role="img"
+             aria-label="Stacked bar chart, by quarter, of energy delivered and energy curtailed from wind and utility-scale solar."></div>
+      </section>
+
+      <section class="card">
+        <h2>Share of potential that was curtailed</h2>
+        <p class="chart-desc">Curtailed energy divided by potential energy, each quarter.</p>
+        <div id="chart-rate" class="chart" style="height: 300px" role="img"
+             aria-label="Bar chart of the percentage of potential energy that was curtailed, by quarter."></div>
+      </section>
+
+      <section class="card">
+        <h2>Why energy was curtailed</h2>
+        <p class="chart-desc">Curtailed energy by the reason Hawaiian Electric recorded (tracked since July 2015).</p>
+        <div id="chart-reasons" class="chart" style="height: 360px" role="img"
+             aria-label="Stacked bar chart, by quarter, of curtailed energy by reason: oversupply, system constraint, facility requested."></div>
+      </section>
+
+      <ul class="notes" id="notes"></ul>
+
+      <details>
+        <summary>View the data as a table</summary>
+        <div class="table-wrap">
+          <table id="data-table"></table>
+        </div>
+      </details>
+
+      <p class="source" id="source"></p>
+    </main>
+
+    <script type="module" src="js/curtailment.js"></script>
+  </body>
+</html>

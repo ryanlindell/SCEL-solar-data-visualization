@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hawaiʻi grid: duck curve</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="site-nav" aria-label="Charts">
+        <a href="index.html">Renewable share</a>
+        <a href="duck_curve.html" aria-current="page">Duck curve</a>
+        <a href="curtailment.html">Curtailment</a>
+        <a href="battery.html">Battery</a>
+        <a href="map.html">Plant map</a>
+      </nav>
+
+      <h1><span id="title">A typical weekday on the grid</span><span class="tag">Modeled</span></h1>
+      <p class="subtitle" id="subtitle">Loading…</p>
+
+      <div class="controls" id="season-controls" role="radiogroup" aria-label="Season"></div>
+
+      <section class="card">
+        <div id="chart" role="img" aria-label="Line chart of modeled hourly electricity demand and net load."></div>
+      </section>
+
+      <div class="stats" id="stats"></div>
+
+      <details class="explainer">
+        <summary>What is curtailment?</summary>
+        <div id="curtailment-explainer-body"></div>
+      </details>
+
+      <ul class="notes" id="notes"></ul>
+
+      <details>
+        <summary>View the data as a table</summary>
+        <div class="table-wrap">
+          <table id="data-table"></table>
+        </div>
+      </details>
+
+      <p class="source" id="source"></p>
+    </main>
+
+    <script type="module" src="js/duck_curve.js"></script>
+  </body>
+</html>

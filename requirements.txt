@@ -1,0 +1,6 @@
+requests>=2.31
+python-dotenv>=1.0
+PyYAML>=6.0
+openpyxl>=3.1
+pytest>=8.0
+websocket-client>=1.6  # only for the optional browser tests (tests/browser)

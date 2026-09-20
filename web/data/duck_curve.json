@@ -1,0 +1,1156 @@
+{
+ "meta": {
+  "generated_at": "2026-09-20T07:10:28+00:00",
+  "kind": "modeled",
+  "units": "MW (average over each hour)",
+  "day_type": "average weekday (Monday-Friday)",
+  "time_zone": "Hawaii Standard Time (no daylight saving)",
+  "sources": [
+   "NREL End-Use Load Profiles (ResStock / ComStock): modeled hourly customer demand and rooftop solar",
+   "NREL PVWatts v8: modeled hourly utility-scale solar output (typical meteorological year)",
+   "U.S. EIA Open Data API: actual monthly generation by plant (electricity/facility-fuel) and estimated rooftop solar (electricity/electric-power-operational-data), used to set the sizes"
+  ]
+ },
+ "regions": {
+  "oahu": {
+   "label": "Oʻahu",
+   "reference_year": 2024,
+   "share_of_state": 0.7,
+   "rooftop_share_of_state": 0.77,
+   "rooftop_solar_gwh_per_year": 1211.3,
+   "utility_solar_gwh_per_year": 455.2,
+   "seasons": {
+    "winter": {
+     "label": "Winter",
+     "months": [
+      12,
+      1,
+      2
+     ],
+     "weekdays_averaged": 64,
+     "stats": {
+      "midday_low_mw": 490.0,
+      "midday_low_hour": 12,
+      "evening_peak_mw": 1072.4,
+      "evening_peak_hour": 18,
+      "evening_climb_mw": 582.4,
+      "steepest_3h_ramp_mw": 413.9,
+      "steepest_3h_ramp_start_hour": 14
+     }
+    },
+    "spring": {
+     "label": "Spring",
+     "months": [
+      3,
+      4,
+      5
+     ],
+     "weekdays_averaged": 66,
+     "stats": {
+      "midday_low_mw": 387.0,
+      "midday_low_hour": 12,
+      "evening_peak_mw": 992.9,
+      "evening_peak_hour": 18,
+      "evening_climb_mw": 606.0,
+      "steepest_3h_ramp_mw": 397.0,
+      "steepest_3h_ramp_start_hour": 14
+     }
+    },
+    "summer": {
+     "label": "Summer",
+     "months": [
+      6,
+      7,
+      8
+     ],
+     "weekdays_averaged": 66,
+     "stats": {
+      "midday_low_mw": 459.7,
+      "midday_low_hour": 12,
+      "evening_peak_mw": 1016.7,
+      "evening_peak_hour": 18,
+      "evening_climb_mw": 556.9,
+      "steepest_3h_ramp_mw": 376.4,
+      "steepest_3h_ramp_start_hour": 14
+     }
+    },
+    "fall": {
+     "label": "Fall",
+     "months": [
+      9,
+      10,
+      11
+     ],
+     "weekdays_averaged": 65,
+     "stats": {
+      "midday_low_mw": 537.8,
+      "midday_low_hour": 12,
+      "evening_peak_mw": 1063.6,
+      "evening_peak_hour": 18,
+      "evening_climb_mw": 525.7,
+      "steepest_3h_ramp_mw": 359.4,
+      "steepest_3h_ramp_start_hour": 14
+     }
+    }
+   }
+  }
+ },
+ "rows": [
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 0,
+   "customer_demand_mw": 521.8,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 521.8,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 26.8,
+   "net_load_mw": 495.0
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 1,
+   "customer_demand_mw": 477.7,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 477.7,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 26.8,
+   "net_load_mw": 450.9
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 2,
+   "customer_demand_mw": 447.0,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 447.0,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 26.8,
+   "net_load_mw": 420.2
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 3,
+   "customer_demand_mw": 434.1,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 434.1,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 26.8,
+   "net_load_mw": 407.3
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 4,
+   "customer_demand_mw": 459.8,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 459.8,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 26.8,
+   "net_load_mw": 433.0
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 5,
+   "customer_demand_mw": 552.1,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 552.1,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 26.8,
+   "net_load_mw": 525.3
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 6,
+   "customer_demand_mw": 686.7,
+   "rooftop_solar_mw": 0.5,
+   "grid_load_mw": 686.2,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 26.8,
+   "net_load_mw": 659.4
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 7,
+   "customer_demand_mw": 756.0,
+   "rooftop_solar_mw": 35.9,
+   "grid_load_mw": 720.0,
+   "utility_solar_mw": 8.7,
+   "wind_mw": 26.8,
+   "net_load_mw": 684.5
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 8,
+   "customer_demand_mw": 866.0,
+   "rooftop_solar_mw": 153.1,
+   "grid_load_mw": 712.9,
+   "utility_solar_mw": 52.2,
+   "wind_mw": 26.8,
+   "net_load_mw": 633.9
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 9,
+   "customer_demand_mw": 956.5,
+   "rooftop_solar_mw": 265.8,
+   "grid_load_mw": 690.7,
+   "utility_solar_mw": 96.9,
+   "wind_mw": 26.8,
+   "net_load_mw": 567.0
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 10,
+   "customer_demand_mw": 1024.4,
+   "rooftop_solar_mw": 360.6,
+   "grid_load_mw": 663.8,
+   "utility_solar_mw": 129.0,
+   "wind_mw": 26.8,
+   "net_load_mw": 508.0
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 11,
+   "customer_demand_mw": 1077.0,
+   "rooftop_solar_mw": 411.1,
+   "grid_load_mw": 665.9,
+   "utility_solar_mw": 145.2,
+   "wind_mw": 26.8,
+   "net_load_mw": 493.9
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 12,
+   "customer_demand_mw": 1101.5,
+   "rooftop_solar_mw": 437.0,
+   "grid_load_mw": 664.5,
+   "utility_solar_mw": 147.7,
+   "wind_mw": 26.8,
+   "net_load_mw": 490.0
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 13,
+   "customer_demand_mw": 1106.4,
+   "rooftop_solar_mw": 416.5,
+   "grid_load_mw": 689.8,
+   "utility_solar_mw": 144.6,
+   "wind_mw": 26.8,
+   "net_load_mw": 518.4
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 14,
+   "customer_demand_mw": 1105.4,
+   "rooftop_solar_mw": 364.7,
+   "grid_load_mw": 740.7,
+   "utility_solar_mw": 130.6,
+   "wind_mw": 26.8,
+   "net_load_mw": 583.3
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 15,
+   "customer_demand_mw": 1117.5,
+   "rooftop_solar_mw": 283.7,
+   "grid_load_mw": 833.8,
+   "utility_solar_mw": 105.0,
+   "wind_mw": 26.8,
+   "net_load_mw": 701.9
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 16,
+   "customer_demand_mw": 1106.9,
+   "rooftop_solar_mw": 172.7,
+   "grid_load_mw": 934.2,
+   "utility_solar_mw": 62.2,
+   "wind_mw": 26.8,
+   "net_load_mw": 845.2
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 17,
+   "customer_demand_mw": 1102.1,
+   "rooftop_solar_mw": 58.1,
+   "grid_load_mw": 1044.0,
+   "utility_solar_mw": 20.0,
+   "wind_mw": 26.8,
+   "net_load_mw": 997.2
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 18,
+   "customer_demand_mw": 1100.7,
+   "rooftop_solar_mw": 1.5,
+   "grid_load_mw": 1099.2,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 26.8,
+   "net_load_mw": 1072.4
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 19,
+   "customer_demand_mw": 1083.2,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 1083.2,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 26.8,
+   "net_load_mw": 1056.4
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 20,
+   "customer_demand_mw": 1034.4,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 1034.4,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 26.8,
+   "net_load_mw": 1007.6
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 21,
+   "customer_demand_mw": 911.9,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 911.9,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 26.8,
+   "net_load_mw": 885.1
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 22,
+   "customer_demand_mw": 722.8,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 722.8,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 26.8,
+   "net_load_mw": 695.9
+  },
+  {
+   "region": "oahu",
+   "season": "winter",
+   "hour": 23,
+   "customer_demand_mw": 588.4,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 588.4,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 26.8,
+   "net_load_mw": 561.6
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 0,
+   "customer_demand_mw": 505.9,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 505.9,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 40.7,
+   "net_load_mw": 465.2
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 1,
+   "customer_demand_mw": 468.4,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 468.4,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 40.7,
+   "net_load_mw": 427.7
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 2,
+   "customer_demand_mw": 460.4,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 460.4,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 40.7,
+   "net_load_mw": 419.7
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 3,
+   "customer_demand_mw": 483.5,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 483.5,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 40.7,
+   "net_load_mw": 442.8
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 4,
+   "customer_demand_mw": 567.1,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 567.1,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 40.7,
+   "net_load_mw": 526.4
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 5,
+   "customer_demand_mw": 681.9,
+   "rooftop_solar_mw": 0.4,
+   "grid_load_mw": 681.4,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 40.7,
+   "net_load_mw": 640.7
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 6,
+   "customer_demand_mw": 746.0,
+   "rooftop_solar_mw": 17.8,
+   "grid_load_mw": 728.2,
+   "utility_solar_mw": 1.9,
+   "wind_mw": 40.7,
+   "net_load_mw": 685.6
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 7,
+   "customer_demand_mw": 832.8,
+   "rooftop_solar_mw": 95.3,
+   "grid_load_mw": 737.5,
+   "utility_solar_mw": 29.6,
+   "wind_mw": 40.7,
+   "net_load_mw": 667.2
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 8,
+   "customer_demand_mw": 924.0,
+   "rooftop_solar_mw": 208.8,
+   "grid_load_mw": 715.2,
+   "utility_solar_mw": 74.0,
+   "wind_mw": 40.7,
+   "net_load_mw": 600.5
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 9,
+   "customer_demand_mw": 996.6,
+   "rooftop_solar_mw": 324.0,
+   "grid_load_mw": 672.5,
+   "utility_solar_mw": 109.9,
+   "wind_mw": 40.7,
+   "net_load_mw": 521.9
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 10,
+   "customer_demand_mw": 1047.3,
+   "rooftop_solar_mw": 424.1,
+   "grid_load_mw": 623.1,
+   "utility_solar_mw": 131.9,
+   "wind_mw": 40.7,
+   "net_load_mw": 450.6
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 11,
+   "customer_demand_mw": 1071.0,
+   "rooftop_solar_mw": 483.5,
+   "grid_load_mw": 587.4,
+   "utility_solar_mw": 151.4,
+   "wind_mw": 40.7,
+   "net_load_mw": 395.3
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 12,
+   "customer_demand_mw": 1079.5,
+   "rooftop_solar_mw": 504.6,
+   "grid_load_mw": 574.9,
+   "utility_solar_mw": 147.2,
+   "wind_mw": 40.7,
+   "net_load_mw": 387.0
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 13,
+   "customer_demand_mw": 1087.9,
+   "rooftop_solar_mw": 490.4,
+   "grid_load_mw": 597.5,
+   "utility_solar_mw": 148.4,
+   "wind_mw": 40.7,
+   "net_load_mw": 408.4
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 14,
+   "customer_demand_mw": 1103.9,
+   "rooftop_solar_mw": 426.4,
+   "grid_load_mw": 677.6,
+   "utility_solar_mw": 134.5,
+   "wind_mw": 40.7,
+   "net_load_mw": 502.4
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 15,
+   "customer_demand_mw": 1107.2,
+   "rooftop_solar_mw": 327.9,
+   "grid_load_mw": 779.3,
+   "utility_solar_mw": 107.8,
+   "wind_mw": 40.7,
+   "net_load_mw": 630.7
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 16,
+   "customer_demand_mw": 1107.8,
+   "rooftop_solar_mw": 217.9,
+   "grid_load_mw": 889.9,
+   "utility_solar_mw": 73.7,
+   "wind_mw": 40.7,
+   "net_load_mw": 775.4
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 17,
+   "customer_demand_mw": 1080.1,
+   "rooftop_solar_mw": 106.3,
+   "grid_load_mw": 973.9,
+   "utility_solar_mw": 33.8,
+   "wind_mw": 40.7,
+   "net_load_mw": 899.4
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 18,
+   "customer_demand_mw": 1053.9,
+   "rooftop_solar_mw": 18.2,
+   "grid_load_mw": 1035.7,
+   "utility_solar_mw": 2.0,
+   "wind_mw": 40.7,
+   "net_load_mw": 992.9
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 19,
+   "customer_demand_mw": 999.0,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 999.0,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 40.7,
+   "net_load_mw": 958.3
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 20,
+   "customer_demand_mw": 880.6,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 880.6,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 40.7,
+   "net_load_mw": 839.8
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 21,
+   "customer_demand_mw": 718.6,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 718.6,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 40.7,
+   "net_load_mw": 677.9
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 22,
+   "customer_demand_mw": 604.7,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 604.7,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 40.7,
+   "net_load_mw": 564.0
+  },
+  {
+   "region": "oahu",
+   "season": "spring",
+   "hour": 23,
+   "customer_demand_mw": 544.9,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 544.9,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 40.7,
+   "net_load_mw": 504.2
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 0,
+   "customer_demand_mw": 569.2,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 569.2,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 38.2,
+   "net_load_mw": 531.0
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 1,
+   "customer_demand_mw": 525.8,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 525.8,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 38.2,
+   "net_load_mw": 487.6
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 2,
+   "customer_demand_mw": 508.1,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 508.1,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 38.2,
+   "net_load_mw": 469.9
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 3,
+   "customer_demand_mw": 517.2,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 517.2,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 38.2,
+   "net_load_mw": 479.0
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 4,
+   "customer_demand_mw": 584.9,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 584.9,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 38.2,
+   "net_load_mw": 546.7
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 5,
+   "customer_demand_mw": 695.2,
+   "rooftop_solar_mw": 0.7,
+   "grid_load_mw": 694.5,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 38.2,
+   "net_load_mw": 656.3
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 6,
+   "customer_demand_mw": 766.2,
+   "rooftop_solar_mw": 25.5,
+   "grid_load_mw": 740.7,
+   "utility_solar_mw": 3.4,
+   "wind_mw": 38.2,
+   "net_load_mw": 699.1
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 7,
+   "customer_demand_mw": 885.4,
+   "rooftop_solar_mw": 113.1,
+   "grid_load_mw": 772.3,
+   "utility_solar_mw": 36.1,
+   "wind_mw": 38.2,
+   "net_load_mw": 698.0
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 8,
+   "customer_demand_mw": 993.4,
+   "rooftop_solar_mw": 225.8,
+   "grid_load_mw": 767.6,
+   "utility_solar_mw": 88.3,
+   "wind_mw": 38.2,
+   "net_load_mw": 641.1
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 9,
+   "customer_demand_mw": 1083.1,
+   "rooftop_solar_mw": 331.1,
+   "grid_load_mw": 752.0,
+   "utility_solar_mw": 126.4,
+   "wind_mw": 38.2,
+   "net_load_mw": 587.4
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 10,
+   "customer_demand_mw": 1141.4,
+   "rooftop_solar_mw": 418.5,
+   "grid_load_mw": 722.9,
+   "utility_solar_mw": 155.3,
+   "wind_mw": 38.2,
+   "net_load_mw": 529.4
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 11,
+   "customer_demand_mw": 1171.5,
+   "rooftop_solar_mw": 467.2,
+   "grid_load_mw": 704.4,
+   "utility_solar_mw": 178.4,
+   "wind_mw": 38.2,
+   "net_load_mw": 487.8
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 12,
+   "customer_demand_mw": 1179.6,
+   "rooftop_solar_mw": 484.9,
+   "grid_load_mw": 694.6,
+   "utility_solar_mw": 196.7,
+   "wind_mw": 38.2,
+   "net_load_mw": 459.7
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 13,
+   "customer_demand_mw": 1184.5,
+   "rooftop_solar_mw": 465.1,
+   "grid_load_mw": 719.4,
+   "utility_solar_mw": 191.4,
+   "wind_mw": 38.2,
+   "net_load_mw": 489.9
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 14,
+   "customer_demand_mw": 1199.6,
+   "rooftop_solar_mw": 427.9,
+   "grid_load_mw": 771.6,
+   "utility_solar_mw": 172.1,
+   "wind_mw": 38.2,
+   "net_load_mw": 561.3
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 15,
+   "customer_demand_mw": 1202.1,
+   "rooftop_solar_mw": 353.6,
+   "grid_load_mw": 848.5,
+   "utility_solar_mw": 142.6,
+   "wind_mw": 38.2,
+   "net_load_mw": 667.7
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 16,
+   "customer_demand_mw": 1193.9,
+   "rooftop_solar_mw": 241.5,
+   "grid_load_mw": 952.5,
+   "utility_solar_mw": 98.1,
+   "wind_mw": 38.2,
+   "net_load_mw": 816.2
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 17,
+   "customer_demand_mw": 1147.8,
+   "rooftop_solar_mw": 126.2,
+   "grid_load_mw": 1021.6,
+   "utility_solar_mw": 45.8,
+   "wind_mw": 38.2,
+   "net_load_mw": 937.7
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 18,
+   "customer_demand_mw": 1098.1,
+   "rooftop_solar_mw": 36.9,
+   "grid_load_mw": 1061.2,
+   "utility_solar_mw": 6.3,
+   "wind_mw": 38.2,
+   "net_load_mw": 1016.7
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 19,
+   "customer_demand_mw": 1049.0,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 1049.0,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 38.2,
+   "net_load_mw": 1010.8
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 20,
+   "customer_demand_mw": 953.9,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 953.9,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 38.2,
+   "net_load_mw": 915.7
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 21,
+   "customer_demand_mw": 794.1,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 794.1,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 38.2,
+   "net_load_mw": 755.9
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 22,
+   "customer_demand_mw": 671.2,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 671.2,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 38.2,
+   "net_load_mw": 633.0
+  },
+  {
+   "region": "oahu",
+   "season": "summer",
+   "hour": 23,
+   "customer_demand_mw": 607.9,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 607.9,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 38.2,
+   "net_load_mw": 569.7
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 0,
+   "customer_demand_mw": 573.1,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 573.1,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 29.9,
+   "net_load_mw": 543.2
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 1,
+   "customer_demand_mw": 522.3,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 522.3,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 29.9,
+   "net_load_mw": 492.4
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 2,
+   "customer_demand_mw": 496.5,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 496.5,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 29.9,
+   "net_load_mw": 466.6
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 3,
+   "customer_demand_mw": 494.1,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 494.1,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 29.9,
+   "net_load_mw": 464.2
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 4,
+   "customer_demand_mw": 537.3,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 537.3,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 29.9,
+   "net_load_mw": 507.4
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 5,
+   "customer_demand_mw": 636.6,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 636.6,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 29.9,
+   "net_load_mw": 606.7
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 6,
+   "customer_demand_mw": 730.4,
+   "rooftop_solar_mw": 10.1,
+   "grid_load_mw": 720.2,
+   "utility_solar_mw": 0.1,
+   "wind_mw": 29.9,
+   "net_load_mw": 690.2
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 7,
+   "customer_demand_mw": 849.4,
+   "rooftop_solar_mw": 87.5,
+   "grid_load_mw": 761.9,
+   "utility_solar_mw": 32.7,
+   "wind_mw": 29.9,
+   "net_load_mw": 699.4
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 8,
+   "customer_demand_mw": 975.2,
+   "rooftop_solar_mw": 199.4,
+   "grid_load_mw": 775.8,
+   "utility_solar_mw": 92.5,
+   "wind_mw": 29.9,
+   "net_load_mw": 653.4
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 9,
+   "customer_demand_mw": 1074.0,
+   "rooftop_solar_mw": 301.9,
+   "grid_load_mw": 772.0,
+   "utility_solar_mw": 128.2,
+   "wind_mw": 29.9,
+   "net_load_mw": 613.9
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 10,
+   "customer_demand_mw": 1141.6,
+   "rooftop_solar_mw": 386.5,
+   "grid_load_mw": 755.2,
+   "utility_solar_mw": 158.0,
+   "wind_mw": 29.9,
+   "net_load_mw": 567.3
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 11,
+   "customer_demand_mw": 1188.0,
+   "rooftop_solar_mw": 439.0,
+   "grid_load_mw": 749.0,
+   "utility_solar_mw": 181.0,
+   "wind_mw": 29.9,
+   "net_load_mw": 538.2
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 12,
+   "customer_demand_mw": 1208.8,
+   "rooftop_solar_mw": 450.0,
+   "grid_load_mw": 758.8,
+   "utility_solar_mw": 191.1,
+   "wind_mw": 29.9,
+   "net_load_mw": 537.8
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 13,
+   "customer_demand_mw": 1214.4,
+   "rooftop_solar_mw": 421.8,
+   "grid_load_mw": 792.7,
+   "utility_solar_mw": 177.8,
+   "wind_mw": 29.9,
+   "net_load_mw": 585.0
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 14,
+   "customer_demand_mw": 1212.0,
+   "rooftop_solar_mw": 359.7,
+   "grid_load_mw": 852.3,
+   "utility_solar_mw": 150.9,
+   "wind_mw": 29.9,
+   "net_load_mw": 671.6
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 15,
+   "customer_demand_mw": 1195.8,
+   "rooftop_solar_mw": 260.9,
+   "grid_load_mw": 934.9,
+   "utility_solar_mw": 115.1,
+   "wind_mw": 29.9,
+   "net_load_mw": 789.9
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 16,
+   "customer_demand_mw": 1168.1,
+   "rooftop_solar_mw": 147.8,
+   "grid_load_mw": 1020.3,
+   "utility_solar_mw": 68.6,
+   "wind_mw": 29.9,
+   "net_load_mw": 921.9
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 17,
+   "customer_demand_mw": 1124.3,
+   "rooftop_solar_mw": 46.3,
+   "grid_load_mw": 1077.9,
+   "utility_solar_mw": 17.1,
+   "wind_mw": 29.9,
+   "net_load_mw": 1031.0
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 18,
+   "customer_demand_mw": 1095.6,
+   "rooftop_solar_mw": 2.1,
+   "grid_load_mw": 1093.5,
+   "utility_solar_mw": 0.1,
+   "wind_mw": 29.9,
+   "net_load_mw": 1063.6
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 19,
+   "customer_demand_mw": 1056.2,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 1056.2,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 29.9,
+   "net_load_mw": 1026.4
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 20,
+   "customer_demand_mw": 998.9,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 998.9,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 29.9,
+   "net_load_mw": 969.1
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 21,
+   "customer_demand_mw": 876.5,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 876.5,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 29.9,
+   "net_load_mw": 846.6
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 22,
+   "customer_demand_mw": 735.3,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 735.3,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 29.9,
+   "net_load_mw": 705.5
+  },
+  {
+   "region": "oahu",
+   "season": "fall",
+   "hour": 23,
+   "customer_demand_mw": 636.6,
+   "rooftop_solar_mw": 0.0,
+   "grid_load_mw": 636.6,
+   "utility_solar_mw": 0.0,
+   "wind_mw": 29.9,
+   "net_load_mw": 606.8
+  }
+ ]
+}

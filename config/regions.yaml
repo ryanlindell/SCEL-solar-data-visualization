@@ -1,0 +1,139 @@
+# Regions the pipeline knows about.
+#
+# To add another island later (Maui, Hawaiʻi Island, Kauaʻi, ...) copy the
+# "oahu" block, change the id / label / county, and list that island's plants.
+# `python -m pipeline.discover_plants` helps find the plant codes (see README).
+#
+# Why a plant list? EIA does not publish a fuel mix "by utility". It publishes
+# generation by *plant* (route: electricity/facility-fuel). A region is
+# therefore defined as "the set of plants on that island's grid".
+
+# Fuel codes are EIA's "fuel2002" codes (SUN = solar, WND = wind, RFO = residual
+# fuel oil, COL = coal, MSB/MSN = municipal solid waste, ...).
+renewable_fuels: [SUN, WND]   # what counts as "renewable" for the share calculation
+storage_fuels: [MWH]          # battery charging/discharging; storage is not generation
+
+# --- Tier 2: modeled hourly data (duck curve) -------------------------------------------
+# No public hourly Hawaiʻi grid data exists, so the duck curve is MODELED: hourly *shapes*
+# come from NREL data, and the *sizes* are calibrated to the real monthly EIA data from Tier 1.
+hourly_data:
+  # NREL End-Use Load Profiles (public S3 bucket). Both releases use actual 2018 weather.
+  residential_release: "2025/resstock_amy2018_release_1"   # ResStock: homes (statewide files only)
+  commercial_release: "2024/comstock_amy2018_release_2"    # ComStock: businesses (county files)
+  load_timestamp_utc_offset: -5    # those files are stamped in Eastern Standard Time (UTC-5)
+  local_utc_offset: -10            # Hawaiʻi Standard Time; Hawaiʻi has no daylight saving time
+  # A "season" is the set of calendar months averaged into one typical weekday.
+  seasons:
+    winter: {label: "Winter", months: [12, 1, 2]}
+    spring: {label: "Spring", months: [3, 4, 5]}
+    summer: {label: "Summer", months: [6, 7, 8]}
+    fall:   {label: "Fall",   months: [9, 10, 11]}
+
+# --- Tier 3: curtailment as REPORTED by Hawaiian Electric -----------------------------------
+# Hawaiian Electric publishes how much wind and utility-scale solar it curtailed (dialed down),
+# by island and quarter, as Excel files. That is measured data, so Tier 3 uses it directly.
+heco_curtailment:
+  base_url: "https://www.hawaiianelectric.com/documents/about_us/key_performance_metrics/historical/"
+  totals_file: "historical_03_curtailment.xlsx"         # delivered vs curtailed energy, by island (one sheet each)
+  by_reason_file: "historical_03_curtailment_cat.xlsx"  # curtailed energy by reason (all islands on one sheet)
+
+# --- Power-plant map and battery fleet: EIA-860M -------------------------------------------
+# EIA's monthly generator inventory: every grid-connected plant of 1 MW or more, with each unit's in-service
+# and retirement date, location, and (for batteries) energy capacity. One Excel file per month; the pipeline
+# tries the newest month first and works backwards until it finds one that exists.
+eia860m:
+  base_url: "https://www.eia.gov/electricity/data/eia860m/xls/"   # + <month>_generator<year>.xlsx
+  max_months_back: 8
+  # Values in EIA's file that are demonstrably wrong, corrected here with the evidence. Applied when the
+  # data is processed; the JSON keeps both the value EIA published and the one used.
+  corrections:
+    - plant_code: "65058"
+      generator_id: "WAIBA"
+      field: energy_mwh
+      filed_value: 4.6   # applied only while EIA still publishes exactly this; if it changes, the pipeline warns instead
+      value: 144
+      reason: "EIA-860M lists this 36 MW battery as 4.6 MWh (max discharge 2.3 MW), which is not physically plausible; the developer reports 144 MWh of storage."
+      source: "https://www.clearwayhawaii.com/operational-projects-2/waiawa"
+
+regions:
+  oahu:
+    label: "Oʻahu"
+    state: HI
+    county: Honolulu          # Honolulu County = the island of Oʻahu (used by discover_plants)
+
+    # Oʻahu's share of the state's ROOFTOP SOLAR. EIA only estimates rooftop solar for whole states, so this
+    # scales it down to the island. Measured, not guessed: Hawaiian Electric reports 1,211 GWh of distributed
+    # generation on Oʻahu for 2024, and EIA estimates 1,573 GWh for all of Hawaiʻi (1211 / 1573 = 0.77).
+    # It is a single number applied to every year, but the measured share varies from about 0.65 to 0.83
+    # (see `python -m pipeline.run_curtailment`, which prints the recent years). Tier 2 uses it for its
+    # reference year (2024, where it is exact). Tier 1's dotted rooftop line does NOT rely on it when Hawaiian
+    # Electric's reported quarterly totals are cached (they are, once `run_curtailment` has run): each quarter
+    # is sized from that total directly. Tier 1 falls back to this number only for quarters not reported.
+    rooftop_share_of_state: 0.77
+
+    curtailment:
+      totals_sheet: "3D Curtailed Energy Oahu"   # this island's sheet in the totals file
+      by_reason_section: "Oʻahu"                 # this island's heading in the by-reason file (apostrophe style ignored)
+
+    hourly:
+      site: {lat: 21.3, lon: -157.86}   # Honolulu; where NREL's PVWatts models sunshine
+      # Reference solar farm for PVWatts (fixed tilt, ~latitude, facing south). Only its daily
+      # *shape* is used - its size is calibrated to Oʻahu's actual monthly solar output.
+      pv_system: {tilt: 20, azimuth: 180, array_type: 0, module_type: 0, losses: 14}
+      state: HI                # the residential load files and EIA's rooftop-solar estimates are per state
+      share_of_state: 0.70     # Oʻahu's share of the state's HOMES; ≈ its share of people
+                               # (2020 Census: 1.02M of 1.46M). An approximation - see README.
+      commercial: {county_fips: G1500030}              # Honolulu County
+      reference_year: null                             # null = latest year fully covered by final EIA data
+
+    # Plants on Oʻahu that sell to the grid, as of the EIA-860 plant registry.
+    # Includes retired plants (Honolulu, AES Hawaii coal) so history is complete.
+    plants:
+      # Hawaiian Electric utility plants
+      - {code: "764",   name: "Honolulu"}                     # retired
+      - {code: "765",   name: "Kahe"}
+      - {code: "766",   name: "Waiau"}
+      - {code: "56329", name: "Campbell Industrial Park"}
+      - {code: "60328", name: "Schofield Generating Station"}
+      - {code: "58469", name: "HNL Emergency Power Facility"}
+      - {code: "56330", name: "Ewa Nui Substation DG"}       # small distributed generation, 2006-2010
+      - {code: "56331", name: "Iwilei Tank Farm DG"}
+      - {code: "56332", name: "Helemano Substation DG"}
+      - {code: "56514", name: "Kalaeoloa Pole Yard DG"}
+      - {code: "56515", name: "CEIP Substation Distributed Generation"}
+      # Independent power producers - fossil / waste
+      - {code: "10673", name: "AES Hawaii"}                  # coal, retired 2022
+      - {code: "54646", name: "Kalaeloa Cogen Plant"}
+      - {code: "10334", name: "H Power"}                     # waste-to-energy
+      # Wind
+      - {code: "57087", name: "Kahuku Wind Power LLC"}
+      - {code: "57529", name: "Kawailoa Wind"}
+      - {code: "58837", name: "Na Pua Makani Wind Project"}
+      # Solar
+      - {code: "58259", name: "Kalaeloa Solar Two"}
+      - {code: "58676", name: "Pearl City Peninsula Solar Park"}
+      - {code: "58684", name: "Kapolei Solar Energy Park"}
+      - {code: "58651", name: "Kalaeloa Renewable Energy Park"}
+      - {code: "58655", name: "Waihonu North Solar"}
+      - {code: "58656", name: "Waihonu South Solar"}
+      - {code: "58659", name: "Aloha Solar Energy Fund 1 PK1"}
+      - {code: "61172", name: "EE Waianae Solar Project"}
+      - {code: "58281", name: "Lanikuhana Solar LLC"}
+      - {code: "60024", name: "Waipio Solar"}
+      - {code: "60125", name: "Kawailoa Solar"}
+      - {code: "61987", name: "West Loch Solar One"}
+      - {code: "64190", name: "Waipio Peninsula"}
+      - {code: "58662", name: "Mauka FIT One"}
+      - {code: "64400", name: "BYU - Hawaii"}
+      - {code: "57242", name: "Mililani South Solar Farm"}
+      - {code: "65058", name: "Waiawa Solar Power Hybrid"}
+      - {code: "64656", name: "AES West Oahu Solar Hybrid"}
+      - {code: "63723", name: "Ho'Ohana Solar 1"}
+      # Battery storage (no generation, present so the plant list stays complete)
+      - {code: "61851", name: "Campbell Industrial Park BESS"}
+      - {code: "66067", name: "Kapolei Energy Storage"}
+
+    # Plants in Honolulu County that are deliberately NOT counted, with the reason.
+    excluded_plants:
+      - {code: "10093", name: "Tesoro Hawaii", reason: "Refinery cogeneration (EIA sector: industrial CHP) - self-generation, not grid supply"}
+      - {code: "10194", name: "Hawaii Cogen", reason: "Refinery cogeneration (EIA sector: industrial CHP) - self-generation, not grid supply"}

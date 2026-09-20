@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hawaiʻi grid: power plants over time</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+  </head>
+  <body>
+    <main class="page page-wide">
+      <nav class="site-nav" aria-label="Charts">
+        <a href="index.html">Renewable share</a>
+        <a href="duck_curve.html">Duck curve</a>
+        <a href="curtailment.html">Curtailment</a>
+        <a href="battery.html">Battery</a>
+        <a href="map.html" aria-current="page">Plant map</a>
+      </nav>
+
+      <h1><span id="title">Power plants over time</span><span class="tag">EIA-860</span></h1>
+      <p class="subtitle" id="subtitle">Loading…</p>
+
+      <div class="time-controls">
+        <button type="button" id="play" aria-label="Play the timeline">▶ Play</button>
+        <button type="button" id="today" aria-label="Jump to today">Today</button>
+        <input type="range" id="time" min="0" max="0" step="1" value="0" aria-label="Date" />
+        <output id="time-label" for="time" aria-live="off"></output>
+      </div>
+      <p class="time-note" id="time-note"></p>
+
+      <div class="with-panel">
+        <div>
+          <div id="map" role="region" aria-label="Map of Oʻahu's power plants on the selected date"></div>
+          <section class="plant-card" id="plant-card" aria-live="polite">
+            <p class="plant-card-empty">Click a plant on the map (or pick one from the list below) to see its units.</p>
+          </section>
+        </div>
+
+        <aside class="info-panel" aria-label="Capacity in service on the selected date">
+          <h2>In service on this date</h2>
+          <div class="stats stats-compact" id="stats"></div>
+          <table class="group-table" id="group-table"></table>
+          <p class="panel-note">Circle size is the capacity in service; color is the fuel of the largest units. Batteries show their power rating and are not counted as generating capacity. A faint circle with a dashed outline is a plant that is planned but not built yet.</p>
+        </aside>
+      </div>
+
+      <details class="explainer">
+        <summary>What is EIA-860, and which plants are on this map?</summary>
+        <div id="explainer-body"></div>
+      </details>
+
+      <ul class="notes" id="notes"></ul>
+
+      <details>
+        <summary>View the plants in service on this date as a list</summary>
+        <div class="table-wrap">
+          <table id="data-table"></table>
+        </div>
+      </details>
+
+      <p class="source" id="source"></p>
+    </main>
+
+    <script type="module" src="js/map.js"></script>
+  </body>
+</html>

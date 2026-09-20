@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hawaiʻi grid: battery</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="site-nav" aria-label="Charts">
+        <a href="index.html">Renewable share</a>
+        <a href="duck_curve.html">Duck curve</a>
+        <a href="curtailment.html">Curtailment</a>
+        <a href="battery.html" aria-current="page">Battery</a>
+        <a href="map.html">Plant map</a>
+      </nav>
+
+      <h1><span id="title">What a battery does to the duck</span><span class="tag">Simulation</span></h1>
+      <p class="subtitle" id="subtitle">Loading…</p>
+
+      <div class="controls" id="season-controls" role="radiogroup" aria-label="Season"></div>
+
+      <div class="sliders" id="sliders"></div>
+      <button type="button" class="reset" id="reset">Reset sliders</button>
+
+      <div class="stats" id="stats" aria-live="polite"></div>
+
+      <details class="explainer">
+        <summary>What is this simulating, and how does it compare with real batteries?</summary>
+        <div id="battery-explainer-body"></div>
+      </details>
+
+      <section class="card" style="margin-top: 16px">
+        <h2>Net load, with and without the battery</h2>
+        <p class="chart-desc">What fossil-fuel plants must supply across a typical weekday. The shaded band is energy the battery moves.</p>
+        <div id="chart-net" class="chart" style="height: 420px" role="img"
+             aria-label="Line chart of hourly net load with and without the battery."></div>
+      </section>
+
+      <section class="card">
+        <h2>What the battery is doing</h2>
+        <p class="chart-desc">Charging adds to demand (up); discharging supplies the grid (down). Orange is solar that had to be curtailed.</p>
+        <div id="chart-battery" class="chart" style="height: 300px" role="img"
+             aria-label="Bar chart of hourly battery charging, discharging and curtailed solar."></div>
+      </section>
+
+      <ul class="notes" id="notes"></ul>
+
+      <details>
+        <summary>View the data as a table</summary>
+        <div class="table-wrap">
+          <table id="data-table"></table>
+        </div>
+      </details>
+
+      <p class="source" id="source"></p>
+    </main>
+
+    <script type="module" src="js/battery.js"></script>
+  </body>
+</html>
