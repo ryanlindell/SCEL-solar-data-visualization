@@ -21,20 +21,22 @@
       <p class="subtitle" id="subtitle">Loading…</p>
 
       <div class="with-panel">
-        <div>
-          <section class="card">
-            <div id="chart" role="img" aria-label="Line chart of renewable share of generation by month."></div>
-          </section>
+        <div class="with-panel-main">
+          <div class="with-panel-main__inner">
+            <section class="card">
+              <div id="chart" role="img" aria-label="Line chart of renewable share of generation by month."></div>
+            </section>
 
-          <section class="milestones" id="milestones" aria-labelledby="milestones-heading" hidden>
-            <h2 id="milestones-heading">Milestones</h2>
-            <p class="milestone-hint">Click a numbered diamond on the chart, or pick one here, to see what happened.</p>
-            <div class="milestone-buttons" id="milestone-buttons" role="group" aria-label="Milestones"></div>
-            <article class="plant-card milestone-card" id="milestone-card" aria-live="polite"></article>
-          </section>
+            <section class="milestones" id="milestones" aria-labelledby="milestones-heading" hidden>
+              <h2 id="milestones-heading">Milestones</h2>
+              <p class="milestone-hint">Click a numbered diamond on the chart, or pick one here, to see what happened.</p>
+              <div class="milestone-buttons" id="milestone-buttons" role="group" aria-label="Milestones"></div>
+              <article class="plant-card milestone-card" id="milestone-card" aria-live="polite"></article>
+            </section>
+          </div>
         </div>
 
-        <aside class="info-panel" aria-labelledby="about-heading">
+        <aside class="info-panel info-panel--expandable" aria-labelledby="about-heading">
           <h2 id="about-heading">About this data</h2>
           <dl class="facts">
             <dt>Source</dt>
