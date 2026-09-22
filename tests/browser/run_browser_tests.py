@@ -364,6 +364,162 @@ def test_map(b: Browser, url: str) -> None:
     check("no JavaScript errors", not b.errors, str(b.errors[:2]))
 
 
+def test_manoa(b: Browser, url: str) -> None:
+    print("\n-- Mānoa solar page")
+    ready = "document.querySelector('#chart .main-svg') && document.querySelectorAll('.stat').length === 5"
+    b.goto(f"{url}/manoa.html", ready)
+    b.pause(600)
+    data = b.js("fetch('data/manoa_solar.json').then(r => r.json())")
+    sensor_data = b.js("fetch('data/manoa_solar_sensor.json').then(r => r.json())")
+    rows = {(r["day_set"], r["season"], r["hour"]): r for r in data["rows"]}
+    sensor_rows = {(r["day_set"], r["season"], r["hour"]): r for r in sensor_data["rows"]}
+    seasons = list(data["seasons"])
+    PVWATTS_SCALE = 4.3  # the PVWatts file is a 1,000 kW reference, scaled up to Mānoa's real 4,300 kW array
+
+    def kw(day_set, season, field="dc_w"):
+        return [rows[(day_set, season, h)][field] / 1000 * PVWATTS_SCALE for h in range(24)]
+
+    def psh(day_set, season):
+        # Peak sun hours: that day's sunlight in kWh/m2, independent of array size or DC/AC.
+        return sum(rows[(day_set, season, h)]["poa_wm2"] for h in range(24)) / 1000
+
+    def sensor_kw(day_set, season, field="dc_w"):
+        # None (a real night, or a data gap) stays None: callers filter it out, same as the page does.
+        return [None if (v := sensor_rows[(day_set, season, h)][field]) is None else v / 1000 for h in range(24)]
+
+    richest = max(seasons, key=lambda sid: sum(kw("weekdays", sid)))
+    trace = lambda i: f"document.getElementById('chart').data[{i}]"
+    tiles = lambda: b.js("[...document.querySelectorAll('#stats .stat')].map(t => [...t.children].map(c => c.textContent))")
+
+    check("the Mānoa page is in the site's navigation", b.js("[...document.querySelectorAll('.site-nav a')].some(a => a.getAttribute('href') === 'manoa.html' && a.getAttribute('aria-current') === 'page')"))
+    check("it is tagged as modeled and says it is not a measurement", b.js("document.querySelector('.tag').textContent") == "Modeled" and "not a measurement" in b.js("document.getElementById('notes').textContent"))
+    check("the season buttons offer each season plus a compare view",
+          b.js("[...document.querySelectorAll('#season-controls button')].map(x => x.textContent.split(' (')[0])") == [data["seasons"][s]["label"] for s in seasons] + ["Compare all four"])
+    check(f"it opens on the season that makes the most energy ({richest}), for weekdays and DC power",
+          data["seasons"][richest]["label"] in b.js("document.querySelector('#season-controls [aria-checked=true]').textContent")
+          and b.js("document.querySelector('#days-controls [aria-checked=true]').textContent") == "Weekdays"
+          and b.js("document.querySelector('#power-controls [aria-checked=true]').textContent").startswith("DC"))
+
+    # ---- the drawn curve is the data ---------------------------------------------------------------------------------
+    smooth_y = b.js(f"{trace(0)}.y")
+    dots_x, dots_y = b.js(f"{trace(1)}.x"), b.js(f"{trace(1)}.y")
+    want = [(h + 0.5, v) for h, v in enumerate(kw("weekdays", richest)) if v > 0]
+    check("the dots are the model's hourly averages, each plotted in the middle of its hour",
+          len(dots_x) == len(want) and all(abs(x - wx) < 1e-9 and abs(y - wy) < 1e-6 for x, y, (wx, wy) in zip(dots_x, dots_y, want)), f"{len(dots_x)} dots")
+    check("the smooth curve never dips below zero and peaks where the data do",
+          min(smooth_y) >= 0 and max(dots_y) <= max(smooth_y) <= max(dots_y) * 1.005, f"min {min(smooth_y):.3f}, max {max(smooth_y):.1f} vs {max(dots_y):.1f}")
+    check("no fitted/idealized curve is drawn - only the real data line and its dots",
+          len(b.js("document.getElementById('chart').data")) == 2, str(len(b.js("document.getElementById('chart').data"))))
+    check("the x axis reads in clock times", b.js("document.getElementById('chart').layout.xaxis.ticktext.join(',')") == "6 AM,9 AM,12 PM,3 PM,6 PM")
+
+    # ---- the numbers on the tiles ------------------------------------------------------------------------------------
+    dc = kw("weekdays", richest)
+    t = tiles()
+    check("the peak tile is the highest hourly value", t[0][0] == "Peak power" and t[0][1] == f"{round(max(dc)):,} kW", str(t[0]))
+    check("the energy tile is the day's total in MWh", t[1][1] == f"{sum(dc) / 1000:.1f} MWh", str(t[1]))
+    check("the width tile gives hours and a clock-time span", t[2][1].endswith(" hours") and "AM to" in t[2][2] and "PM" in t[2][2], str(t[2]))
+    expected_cf = 100 * sum(dc) / (4300 * 24)  # sum(dc) is kWh (24 hourly kW averages); the 4,300 kW array x 24 h is the day's capacity
+    check("the capacity-factor tile is the day's average power over the array's rating", t[3][0] == "Capacity factor" and t[3][1] == f"{expected_cf:.1f}%", str(t[3]))
+    check("the peak-sun-hours tile is that day's sunlight in kWh/m2, independent of array size",
+          t[4][0] == "Peak sun hours" and t[4][1] == f"{psh('weekdays', richest):.1f} PSH", str(t[4]))
+
+    # ---- the controls ------------------------------------------------------------------------------------------------
+    def pick(group, text):
+        b.js(f"[...document.querySelectorAll('#{group}-controls button')].find(x => x.textContent.startsWith({text!r})).click()")
+        b.pause(400)
+
+    pick("power", "AC")
+    ac = kw("weekdays", richest, "ac_w")
+    check("choosing AC redraws with the after-inverter numbers (lower than DC)",
+          tiles()[0][1] == f"{round(max(ac)):,} kW" and max(ac) < max(dc) and "AC" in b.js("document.getElementById('chart').layout.yaxis.title.text"), tiles()[0][1])
+    check("peak sun hours is about sunlight, not power, so it doesn't change between DC and AC",
+          tiles()[4][1] == f"{psh('weekdays', richest):.1f} PSH", tiles()[4][1])
+    pick("power", "DC")
+    pick("days", "All days")
+    every = kw("all_days", richest)
+    check("choosing All days uses the all-days averages", tiles()[0][1] == f"{round(max(every)):,} kW" and "weekday" not in b.js("document.getElementById('subtitle').textContent"), tiles()[0][1])
+    pick("days", "Weekdays")
+    pick("season", "Winter")
+    winter = kw("weekdays", "winter")
+    check("choosing a season shows that season, and winter's peak is smaller than summer's", tiles()[0][1] == f"{round(max(winter)):,} kW" and max(winter) < max(dc), tiles()[0][1])
+    check("every season is drawn to the same scale, so seasons compare fairly",
+          b.js("document.getElementById('chart').layout.yaxis.range[1]") >= max(max(kw("weekdays", s)) for s in seasons))
+
+    pick("season", "Compare")
+    names = b.js("document.getElementById('chart').data.filter(t => t.showlegend !== false).map(t => t.name)")
+    check("Compare draws one curve per season, named in the legend", names == [data["seasons"][s]["label"] for s in seasons], str(names))
+    labels = b.js("[...document.querySelectorAll('#stats .stat')].map(t => t.firstChild.textContent)")
+    peaks = b.js("[...document.querySelectorAll('#stats .stat-value')].map(t => t.textContent)")
+    check("Compare shows a tile per season with its own peak",
+          labels == [data["seasons"][s]["label"] for s in seasons] and peaks == [f"{round(max(kw('weekdays', s))):,} kW peak" for s in seasons], str(peaks))
+    check("the table follows the view: hours down the side, one column per season",
+          b.js("document.querySelectorAll('#data-table thead th').length") == 5 and b.js("document.querySelectorAll('#data-table tbody tr').length") == 24)
+
+    # ---- two estimates: PVWatts model and Sensor + pvlib, overlaid or shown alone --------------------------------------
+    b.goto(f"{url}/manoa.html?season={richest}", ready)
+    b.pause(600)
+    estimate = lambda: b.js("[...document.querySelectorAll('#estimate-controls button')].map(x => [x.textContent, x.getAttribute('aria-checked')])")
+    check("PVWatts is shown by default, Sensor + pvlib is opt-in", estimate() == [["PVWatts model", "true"], ["Sensor + pvlib", "false"]], str(estimate()))
+    check("only one estimate drawn by default: the smooth line and its dots, nothing more", b.js("document.getElementById('chart').data.length") == 2)
+
+    click(b, "document.querySelectorAll('#estimate-controls button')[1]")
+    check("turning on Sensor + pvlib doubles the traces (one line + one dot series per estimate)",
+          b.js("document.getElementById('chart').data.length") == 4, str(b.js("document.getElementById('chart').data.length")))
+    stat_labels = b.js("[...document.querySelectorAll('#stats .stat-label')].map(t => t.textContent)")
+    check("both estimates now have their own five tiles, including peak sun hours",
+          "Peak power (PVWatts)" in stat_labels and "Peak power (Sensor)" in stat_labels
+          and "Peak sun hours (PVWatts)" in stat_labels and "Peak sun hours (Sensor)" in stat_labels
+          and len(stat_labels) == 10, str(stat_labels))
+    dc_present = [v for v in sensor_kw("weekdays", richest, "dc_w") if v is not None]
+    sensor_peak_tile = b.js("document.querySelectorAll('#stats .stat-value')[5].textContent")
+    check("the Sensor + pvlib tile matches its own file's peak (no PVWatts scaling applied to it)",
+          sensor_peak_tile == f"{round(max(dc_present)):,} kW", sensor_peak_tile)
+    check("night hours are a real absence for the sensor estimate, not a modeled zero",
+          sensor_rows[("weekdays", richest, 0)]["dc_w"] is None)
+
+    click(b, "document.querySelectorAll('#estimate-controls button')[0]")  # turn PVWatts back off, leaving only Sensor
+    check("turning off the other estimate leaves just Sensor + pvlib (2 traces, 5 tiles, no source suffix)",
+          b.js("document.getElementById('chart').data.length") == 2 and
+          b.js("document.querySelectorAll('#stats .stat-label').length") == 5 and
+          b.js("document.querySelectorAll('#stats .stat-label')[0].textContent") == "Peak power")
+    click(b, "document.querySelectorAll('#estimate-controls button')[1]")  # try to turn off the only remaining estimate
+    check("the last visible estimate cannot be switched off", estimate()[1] == ["Sensor + pvlib", "true"], str(estimate()))
+    click(b, "document.querySelectorAll('#estimate-controls button')[0]")  # back to the default, PVWatts only
+    check("the sensor's real-coverage caveat is in the notes",
+          "did not run at night" in b.js("document.getElementById('notes').textContent"))
+
+    # ---- hover: only the dot under the pointer explains itself -----------------------------------------------------
+    b.goto(f"{url}/manoa.html?season={richest}", ready)
+    b.pause(600)
+    spot = b.js("""(() => { const plot = document.querySelector('#chart .cartesianlayer .subplot.xy');
+        const pts = [...plot.querySelectorAll('.scatterlayer .trace')][1].querySelectorAll('.points path.point');
+        const r = pts[6].getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; })()""")
+    b.move_to(*spot)
+    b.pause(400)
+    tip = b.js("[...document.querySelectorAll('#chart .hoverlayer .hovertext')].map(t => t.textContent)")
+    check("hovering a dot shows one tooltip: the hour, DC and AC power, and sunlight",
+          len(tip) == 1 and " kW" in tip[0] and "AC" in tip[0] and "W/m" in tip[0] and ("AM" in tip[0] or "PM" in tip[0]), str(tip))
+    box = b.js("(r => [r.left, r.top, r.width, r.height])(document.querySelector('#chart .draglayer .nsewdrag').getBoundingClientRect())")
+    b.move_to(box[0] + box[2] * 0.06, box[1] + box[3] * 0.2)
+    b.pause(300)
+    check("hovering empty space shows nothing", b.js("document.querySelectorAll('#chart .hoverlayer .hovertext').length") == 0)
+
+    # ---- the address bar, the table and the notes --------------------------------------------------------------------
+    b.goto(f"{url}/manoa.html?season=winter&power=ac&days=all_days", ready)
+    b.pause(500)
+    check("?season, ?power and ?days choose the view",
+          "Winter" in b.js("document.querySelector('#season-controls [aria-checked=true]').textContent")
+          and b.js("document.querySelector('#power-controls [aria-checked=true]').textContent").startswith("AC")
+          and b.js("document.querySelector('#days-controls [aria-checked=true]').textContent") == "All days")
+    check("the table has all 24 hours with sunlight, DC and AC",
+          b.js("document.querySelectorAll('#data-table tbody tr').length") == 24
+          and b.js("[...document.querySelectorAll('#data-table thead th')].map(x => x.textContent.split(' (')[0])") == ["Hour", "Sunlight", "DC power", "AC power"])
+    notes = b.js("document.getElementById('notes').textContent + document.getElementById('source').textContent")
+    check("the notes say what the array is, where the weather cell is, that the coordinates are a placeholder, and that it is a typical year",
+          "lying flat" in notes and "placeholder" in notes and "id 17574" in notes and "typical" in notes and "1,000 kW" in notes)
+    check("no JavaScript errors", not b.errors, str(b.errors[:2]))
+
+
 def test_phone(url: str, shots: Path | None) -> None:
     print("\n-- Phone width (390 px)")
     pages = [
@@ -372,6 +528,7 @@ def test_phone(url: str, shots: Path | None) -> None:
         ("curtailment.html", "document.querySelector('#chart-reasons .main-svg') && document.querySelectorAll('.stat').length"),
         ("battery.html", "document.querySelector('#chart-battery .main-svg') && document.querySelectorAll('.stat').length"),
         ("map.html", "window.__mapState && document.querySelectorAll('#group-table tbody tr').length > 0"),
+        ("manoa.html", "document.querySelector('#chart .main-svg') && document.querySelectorAll('.stat').length === 5"),
     ]
     b = Browser(width=390, height=900)
     try:
@@ -406,7 +563,7 @@ def main() -> int:
     try:
         b = Browser(width=1100, height=1400)
         try:
-            for test in (test_tier1, test_tier2, test_tier3, test_tier4, test_map):
+            for test in (test_tier1, test_tier2, test_tier3, test_tier4, test_map, test_manoa):
                 b.errors.clear()
                 test(b, server.url)
                 if shots:

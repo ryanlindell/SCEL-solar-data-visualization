@@ -29,6 +29,27 @@ hourly_data:
     summer: {label: "Summer", months: [6, 7, 8]}
     fall:   {label: "Fall",   months: [9, 10, 11]}
 
+# --- Site-specific PVWatts models (SEPARATE from the Oʻahu-wide duck curve above) ------------------------------
+# One query per point, for comparing a modeled irradiance/power series with a real sensor. These never feed the
+# duck curve, the plants map or any page: `python -m pipeline.run_manoa_solar` writes them to data/<site id>/.
+# Cached under the site's own name, so they can never overwrite or mix with the region data.
+#
+# pv_system is passed to PVWatts as-is. tilt/azimuth are what to change once the real sensor's mounting is known:
+#   tilt 0 = flat (then plane-of-array irradiance IS global horizontal irradiance, and azimuth has no effect);
+#   for a tilted sensor set tilt (degrees from horizontal) and azimuth (180 = facing south).
+# losses 0 = no system-loss derate, so the power series is not a "real system" estimate; the irradiance
+# (poa/dn/df) is unaffected by losses either way. array_type 0 = fixed open rack, module_type 0 = standard.
+pvwatts_sites:
+  manoa:
+    label: "UH Mānoa campus (placeholder)"
+    placeholder: true    # TODO: replace lat/lon with the real SCEL sensor node's coordinates when known
+    lat: 21.2984         # median of the centres of 214 named UH Mānoa buildings (OpenStreetMap); 130 m from Campus Center
+    lon: -157.8174
+    note: >-
+      Placeholder for the campus centre. The whole campus falls in one NSRDB weather cell (id 17574), so any point
+      on campus returns the same series; only the recorded distance to the cell centre differs.
+    pv_system: {tilt: 0, azimuth: 180, array_type: 0, module_type: 0, losses: 0}
+
 # --- Tier 3: curtailment as REPORTED by Hawaiian Electric -----------------------------------
 # Hawaiian Electric publishes how much wind and utility-scale solar it curtailed (dialed down),
 # by island and quarter, as Excel files. That is measured data, so Tier 3 uses it directly.

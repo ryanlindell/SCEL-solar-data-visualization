@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UH Mānoa: solar power over a day</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="site-nav" aria-label="Charts">
+        <a href="index.html">Renewable share</a>
+        <a href="duck_curve.html">Duck curve</a>
+        <a href="curtailment.html">Curtailment</a>
+        <a href="battery.html">Battery</a>
+        <a href="map.html">Plant map</a>
+        <a href="manoa.html" aria-current="page">Mānoa solar</a>
+      </nav>
+
+      <h1><span id="title">UH Mānoa: solar power over a day</span><span class="tag">Modeled</span></h1>
+      <p class="subtitle" id="subtitle">Loading…</p>
+
+      <div class="control-group">
+        <span class="control-label" id="estimate-label">Estimate</span>
+        <div class="controls" id="estimate-controls" role="group" aria-labelledby="estimate-label"></div>
+      </div>
+      <div class="control-group">
+        <span class="control-label" id="season-label">Season</span>
+        <div class="controls" id="season-controls" role="radiogroup" aria-labelledby="season-label"></div>
+      </div>
+      <div class="control-group">
+        <span class="control-label" id="power-label">Power</span>
+        <div class="controls" id="power-controls" role="radiogroup" aria-labelledby="power-label"></div>
+        <span class="control-label" id="days-label">Average of</span>
+        <div class="controls" id="days-controls" role="radiogroup" aria-labelledby="days-label"></div>
+      </div>
+
+      <section class="card">
+        <div id="chart" role="img" aria-label="Chart of modeled solar power over a day at UH Mānoa."></div>
+      </section>
+
+      <div class="stats" id="stats"></div>
+
+      <details class="explainer">
+        <summary>What am I looking at?</summary>
+        <div id="explainer-body"></div>
+      </details>
+
+      <ul class="notes" id="notes"></ul>
+
+      <details>
+        <summary>View the data as a table</summary>
+        <div class="table-wrap">
+          <table id="data-table"></table>
+        </div>
+      </details>
+
+      <p class="source" id="source"></p>
+    </main>
+
+    <script type="module" src="js/manoa.js"></script>
+  </body>
+</html>

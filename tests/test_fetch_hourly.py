@@ -192,3 +192,27 @@ def test_pvwatts_bad_key_message_and_no_leak():
     with pytest.raises(fetch_nrel.NRELError) as excinfo:
         fetch_nrel.fetch_pvwatts_hourly(MODEL, "SECRET123", JsonSession([leaky] * http.MAX_ATTEMPTS))
     assert "SECRET123" not in str(excinfo.value)
+
+
+# ---- regression: the Oʻahu-wide PVWatts call must never change ---------------------------------------
+# These values were generated from the code BEFORE the site-specific (Mānoa) fetch was added. If one of them fails,
+# the Oʻahu duck curve's inputs would change, which needs a deliberate decision, not a side effect of other work.
+
+
+def test_oahu_pvwatts_request_and_rows_are_exactly_what_they_were_before_site_fetching_existed():
+    import hashlib
+    import json
+
+    body = {"errors": [], "outputs": {"ac": [i * 1.5 for i in range(8760)], "poa": [i * 0.25 for i in range(8760)]}}
+    session = JsonSession([JsonResponse(body)])
+    rows = fetch_nrel.fetch_pvwatts_hourly(MODEL, "KEY", session)
+
+    url, params = session.calls[0]
+    assert url == "https://developer.nlr.gov/api/pvwatts/v8.json"
+    assert list(params.items()) == [  # the parameters and their ORDER
+        ("api_key", "KEY"), ("lat", "21.3"), ("lon", "-157.86"), ("system_capacity", "1000"), ("timeframe", "hourly"),
+        ("dataset", "nsrdb"), ("tilt", "20"), ("azimuth", "180"), ("array_type", "0"), ("module_type", "0"), ("losses", "14"),
+    ]
+    assert set(rows[0]) == {"month", "day", "hour", "ac_w", "poa_wm2"}  # no new columns leak into the Oʻahu rows
+    assert rows[4000] == {"month": 6, "day": 16, "hour": 16, "ac_w": 6000.0, "poa_wm2": 1000.0}
+    assert hashlib.sha256(json.dumps(rows, sort_keys=True).encode()).hexdigest() == "6c8d4f0ed8fb5557290c4120c4f759ba92bbe705cde865fae978023de3a62f3e"

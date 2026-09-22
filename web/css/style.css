@@ -163,6 +163,14 @@ details.explainer a {
   font-size: 0.9rem;
 }
 
+/* With six pages the links no longer fit on one line of a phone: let them wrap onto a second line. */
+@media (max-width: 600px) {
+  .site-nav {
+    flex-wrap: wrap;
+    gap: 6px 16px;
+  }
+}
+
 .site-nav a {
   padding: 0 0 8px;
   margin-bottom: -1px;
@@ -270,6 +278,26 @@ h1 {
   outline-offset: 2px;
 }
 
+/* A label beside a group of choice buttons (the Mānoa page has four such groups; role="checkbox" toggles reuse the
+   same aria-checked styling as the role="radio" groups). */
+.control-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  margin: 0 0 12px;
+}
+
+.control-group .controls {
+  margin: 0;
+}
+
+.control-label {
+  min-width: 68px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
 .sliders {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -331,6 +359,18 @@ h1 {
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 12px;
   margin: 16px 0 0;
+}
+
+/* The Mānoa page, with both estimates shown: a fixed 5 columns so each estimate's peak/energy/width/capacity-factor/
+   peak-sun-hours tiles form their own row, lined up under the same headings instead of wrapping wherever they fit. */
+.stats.paired {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+@media (max-width: 600px) {
+  .stats.paired {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .stat {

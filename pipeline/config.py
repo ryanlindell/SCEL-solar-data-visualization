@@ -17,6 +17,8 @@ OUTPUT_JSON = ROOT / "web" / "data" / "renewable_share.json"
 DUCK_CURVE_JSON = ROOT / "web" / "data" / "duck_curve.json"
 CURTAILMENT_JSON = ROOT / "web" / "data" / "curtailment.json"
 PLANTS_JSON = ROOT / "web" / "data" / "plants.json"
+SITE_SOLAR_DIR = ROOT / "data"  # a site's full exports go in data/<site id>/
+SITE_WEB_DIR = ROOT / "web" / "data"  # ...and a compact copy for the site's own page: web/data/<site id>_solar.json
 
 
 class ConfigError(Exception):
@@ -35,6 +37,19 @@ class HourlyModel:
     rooftop_share_of_state: float  # fraction of the state's rooftop solar that is in this region
     commercial_county_fips: str  # e.g. "G1500030" (the ComStock geography id)
     reference_year: int | None  # None = latest year fully covered by final EIA data
+
+
+@dataclass(frozen=True)
+class PvSite:
+    """One point where PVWatts is queried on its own, apart from any region's duck curve (e.g. a campus sensor site)."""
+
+    id: str  # short name used in the cache and file names, e.g. 'manoa'
+    label: str
+    lat: float
+    lon: float
+    pv_system: dict  # PVWatts inputs: tilt, azimuth, array_type, module_type, losses (all required by the API)
+    placeholder: bool = False  # True while the coordinates are a stand-in for a real sensor's
+    note: str = ""
 
 
 @dataclass(frozen=True)
@@ -114,6 +129,10 @@ class Settings:
     hourly_data: HourlyData
     heco: HecoFiles
     eia860m: Eia860m
+    pvwatts_sites: dict[str, PvSite] = field(default_factory=dict)  # optional; see `pvwatts_sites` in regions.yaml
+
+
+PVWATTS_REQUIRED = ("tilt", "azimuth", "array_type", "module_type", "losses")  # the API refuses a request without these
 
 
 def _get_key(env_var: str, service: str) -> str:
@@ -177,6 +196,21 @@ def load_settings(path: Path = REGIONS_FILE) -> Settings:
             ),
         )
 
+    pvwatts_sites = {}
+    for site_id, s in (raw.get("pvwatts_sites") or {}).items():
+        missing = [k for k in PVWATTS_REQUIRED if k not in (s.get("pv_system") or {})]
+        if missing:
+            raise ConfigError(f"pvwatts_sites.{site_id}.pv_system is missing {', '.join(missing)} (PVWatts requires them).")
+        pvwatts_sites[site_id] = PvSite(
+            id=site_id,
+            label=s["label"],
+            lat=float(s["lat"]),
+            lon=float(s["lon"]),
+            pv_system=dict(s["pv_system"]),
+            placeholder=bool(s.get("placeholder", False)),
+            note=str(s.get("note", "")).strip(),
+        )
+
     hd = raw["hourly_data"]
     hourly_data = HourlyData(
         residential_release=hd["residential_release"],
@@ -195,6 +229,7 @@ def load_settings(path: Path = REGIONS_FILE) -> Settings:
             totals_file=raw["heco_curtailment"]["totals_file"],
             by_reason_file=raw["heco_curtailment"]["by_reason_file"],
         ),
+        pvwatts_sites=pvwatts_sites,
         eia860m=Eia860m(
             base_url=raw["eia860m"]["base_url"],
             max_months_back=int(raw["eia860m"]["max_months_back"]),

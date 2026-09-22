@@ -8,6 +8,7 @@ and *upserted* - a row that already exists is updated in place rather than dupli
 which also picks up EIA's revisions to past months.
 """
 
+import json
 import sqlite3
 from contextlib import closing
 from datetime import datetime, timezone
@@ -37,6 +38,45 @@ CREATE TABLE IF NOT EXISTS raw_pvwatts_hourly (
     poa_wm2    REAL NOT NULL,      -- sunlight on the panel plane, W/m2
     fetched_at TEXT NOT NULL,
     PRIMARY KEY (region, month, day, hour)
+);
+
+-- A single PVWatts query point on its own (e.g. UH Mānoa), kept apart from the region rows above so that neither can
+-- overwrite the other. `raw_pvwatts_site` holds what was asked and what NREL matched it to; the hours are below.
+CREATE TABLE IF NOT EXISTS raw_pvwatts_site (
+    site                TEXT PRIMARY KEY,   -- the id in regions.yaml `pvwatts_sites`, e.g. 'manoa'
+    label               TEXT NOT NULL,
+    query_lat           REAL NOT NULL,      -- the coordinates we asked about
+    query_lon           REAL NOT NULL,
+    request_json        TEXT NOT NULL,      -- every parameter sent, as strings (never the API key)
+    station_json        TEXT NOT NULL,      -- NREL's whole station_info block, as returned
+    station_lat         REAL,               -- the weather grid cell it matched
+    station_lon         REAL,
+    station_elev_m      REAL,
+    station_tz          REAL,
+    station_location    TEXT,               -- NSRDB cell id
+    station_distance_m  REAL,               -- from the query point to that cell's centre
+    solar_resource_file TEXT,
+    weather_data_source TEXT,
+    pvwatts_version     TEXT,
+    fetched_at          TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS raw_pvwatts_site_hourly (
+    site       TEXT NOT NULL,
+    month      INTEGER NOT NULL,
+    day        INTEGER NOT NULL,
+    hour       INTEGER NOT NULL,   -- hour beginning, 0-23, Hawaiʻi standard time (typical meteorological year)
+    poa_wm2    REAL,               -- plane-of-array irradiance, W/m2
+    dn_wm2     REAL,               -- beam (direct normal), W/m2
+    df_wm2     REAL,               -- diffuse horizontal, W/m2
+    dc_w       REAL,               -- DC power of the 1,000 kW (DC) reference array
+    ac_w       REAL,               -- AC power after the inverter model (clipped)
+    tamb_c     REAL,
+    tcell_c    REAL,
+    wspd_ms    REAL,
+    albedo     REAL,
+    fetched_at TEXT NOT NULL,
+    PRIMARY KEY (site, month, day, hour)
 );
 
 -- EIA's estimate of statewide rooftop (small-scale) solar, by month. Used to size the modeled rooftop solar.
@@ -220,6 +260,91 @@ def read_pvwatts_hourly(conn: sqlite3.Connection, region: str) -> list[dict]:
         (region,),
     )
     return [dict(row) for row in cur]
+
+
+SITE_HOURLY_COLUMNS = ("poa_wm2", "dn_wm2", "df_wm2", "dc_w", "ac_w", "tamb_c", "tcell_c", "wspd_ms", "albedo")
+
+
+def replace_pvwatts_site(conn: sqlite3.Connection, site: str, label: str, fetched: dict) -> dict:
+    """Store one site's fetch (fetch_nrel.fetch_pvwatts_site), replacing whatever was cached for that SITE only.
+
+    Region rows (`raw_pvwatts_hourly`) and other sites are never touched. Returns {'fetched', 'new', 'changed'}.
+    """
+    station = fetched.get("station_info") or {}
+    request = fetched["request"]
+    fetched_at = _now()
+    keys = ("month", "day", "hour")
+    existing = {
+        tuple(r[k] for k in keys): tuple(r[c] for c in SITE_HOURLY_COLUMNS)
+        for r in conn.execute(f"SELECT {', '.join(keys + SITE_HOURLY_COLUMNS)} FROM raw_pvwatts_site_hourly WHERE site = ?", (site,))
+    }
+    new = changed = 0
+    for r in fetched["rows"]:
+        old = existing.get(tuple(r[k] for k in keys))
+        if old is None:
+            new += 1
+        elif old != tuple(r[c] for c in SITE_HOURLY_COLUMNS):
+            changed += 1
+    with conn:  # all or nothing
+        conn.execute("DELETE FROM raw_pvwatts_site_hourly WHERE site = ?", (site,))
+        conn.executemany(
+            f"INSERT INTO raw_pvwatts_site_hourly (site, {', '.join(keys + SITE_HOURLY_COLUMNS)}, fetched_at) "
+            f"VALUES ({', '.join('?' * (len(keys) + len(SITE_HOURLY_COLUMNS) + 2))})",
+            [(site, *(r[k] for k in keys), *(r[c] for c in SITE_HOURLY_COLUMNS), fetched_at) for r in fetched["rows"]],
+        )
+        conn.execute(
+            "INSERT OR REPLACE INTO raw_pvwatts_site (site, label, query_lat, query_lon, request_json, station_json, "
+            "station_lat, station_lon, station_elev_m, station_tz, station_location, station_distance_m, "
+            "solar_resource_file, weather_data_source, pvwatts_version, fetched_at) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (
+                site, label, float(request["lat"]), float(request["lon"]),
+                json.dumps(request, ensure_ascii=False), json.dumps(station, ensure_ascii=False),
+                station.get("lat"), station.get("lon"), station.get("elev"), station.get("tz"),
+                None if station.get("location") is None else str(station["location"]),
+                station.get("distance"), station.get("solar_resource_file"), station.get("weather_data_source"),
+                fetched.get("pvwatts_version") or None, fetched_at,
+            ),
+        )
+    return {"fetched": len(fetched["rows"]), "new": new, "changed": changed}
+
+
+def read_pvwatts_site(conn: sqlite3.Connection, site: str) -> dict | None:
+    """What was asked, what NREL matched it to, and when (None if this site was never fetched)."""
+    row = conn.execute("SELECT * FROM raw_pvwatts_site WHERE site = ?", (site,)).fetchone()
+    if row is None:
+        return None
+    meta = dict(row)
+    meta["request"] = json.loads(meta.pop("request_json"))
+    meta["station_info"] = json.loads(meta.pop("station_json"))
+    return meta
+
+
+def read_pvwatts_site_hourly(conn: sqlite3.Connection, site: str) -> list[dict]:
+    cur = conn.execute(
+        f"SELECT month, day, hour, {', '.join(SITE_HOURLY_COLUMNS)} FROM raw_pvwatts_site_hourly "
+        "WHERE site = ? ORDER BY month, day, hour",
+        (site,),
+    )
+    return [dict(r) for r in cur]
+
+
+def pvwatts_site_stale_reason(conn: sqlite3.Connection, site: str, request: dict, hours_expected: int = 8760) -> str | None:
+    """Why the cached copy of this site cannot be used for `request`, or None if it can.
+
+    A different tilt, location or any other parameter means the cached hours answer a different question,
+    so they must be fetched again (unlike the Oʻahu rows, which are reused until --refresh-data).
+    """
+    meta = read_pvwatts_site(conn, site)
+    if meta is None:
+        return "not cached yet"
+    if meta["request"] != request:
+        changed = sorted(k for k in set(meta["request"]) | set(request) if meta["request"].get(k) != request.get(k))
+        return "settings changed (" + ", ".join(f"{k}: {meta['request'].get(k)} -> {request.get(k)}" for k in changed) + ")"
+    have = conn.execute("SELECT COUNT(*) FROM raw_pvwatts_site_hourly WHERE site = ?", (site,)).fetchone()[0]
+    if have != hours_expected:
+        return f"cache is incomplete ({have} of {hours_expected} hours)"
+    return None
 
 
 def upsert_small_scale_solar(conn: sqlite3.Connection, region: str, rows: list[dict]) -> dict:
