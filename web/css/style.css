@@ -70,6 +70,75 @@ body {
   .with-panel {
     grid-template-columns: minmax(0, 1fr) 320px;
   }
+
+  /* "About this data" is a 320px column, so opening "Learn more" used to stretch it into a very tall,
+     narrow strip. Instead, opening it eases the card out to the full width while the chart column fades
+     and folds away (and eases back when closed), so the same text wraps into far fewer lines. The
+     chart is not resized, only hidden. Below 1100px the card is already full width under the chart,
+     so none of this applies there. */
+  .info-panel--expandable {
+    /* Span the whole row (still 320px wide, pinned right), so "width: 100%" below means the full row. */
+    grid-row: 1;
+    grid-column: 1 / -1;
+    justify-self: end;
+    width: 320px;
+    position: relative;
+    z-index: 1;
+    transition: width 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  .with-panel:has(.info-panel--expandable details[open]) .info-panel--expandable {
+    width: 100%;
+  }
+
+  /* Collapsing the chart column's height to 0 (the 1fr -> 0fr trick) lets the row shrink to the card. */
+  .with-panel-main {
+    grid-row: 1; /* both items share row 1; without this the card's explicit placement bumps the chart to row 2 */
+    grid-column: 1;
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  .with-panel-main__inner {
+    min-height: 0;
+    overflow: hidden;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.35s ease-in-out 0.15s, visibility 0s linear 0s;
+  }
+
+  .with-panel:has(.info-panel--expandable details[open]) .with-panel-main {
+    grid-template-rows: 0fr;
+  }
+
+  /* visibility flips only after the fade, so a hidden chart can't be tabbed into or read out. */
+  .with-panel:has(.info-panel--expandable details[open]) .with-panel-main__inner {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease-in-out, visibility 0s linear 0.5s;
+  }
+}
+
+@keyframes info-panel-reveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.info-panel--expandable details[open] > :not(summary) {
+  animation: info-panel-reveal 0.5s ease-in-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .info-panel--expandable,
+  .with-panel-main,
+  .with-panel-main__inner {
+    transition: none !important;
+  }
+
+  .info-panel--expandable details[open] > :not(summary) {
+    animation: none;
+  }
 }
 
 .info-panel {
