@@ -1,4 +1,4 @@
-// The Mānoa page: two independent estimates of solar power over a typical day at UH Mānoa, overlaid.
+// The Mānoa page: three independent estimates of solar power over a typical day at UH Mānoa, overlaid.
 //
 // 1. "PVWatts model" - web/data/manoa_solar.json (written by `python -m pipeline.run_site_solar`). PVWatts was run for
 //    a hypothetical 1,000 kW reference array lying flat, on a satellite-derived typical year; every number here is
@@ -6,9 +6,12 @@
 // 2. "Sensor + pvlib" - web/data/manoa_solar_sensor.json (written by `python -m sensor_model.run`). The real ground
 //    sensor's measured irradiance (data/manoa/sensor/), run through pvlib's own PVWatts equations for the same
 //    4,300 kW array. Shares no code with the PVWatts model; see sensor_model/ for the method.
+// 3. "NSRDB 2012 + pvlib" - web/data/manoa_solar_nsrdb.json (written by `python -m nsrdb_model.run`). NREL's satellite
+//    irradiance for the real year 2012, through sensor_model's exact power model and averaging: against line 2 the
+//    only difference is satellite vs. ground sunlight for the same year.
 //
 // Nothing here is measured *AC power* at Mānoa (only the sensor's irradiance is a real measurement); this page is
-// separate from the Oʻahu pages. Both curves are the data's own hourly averages, smoothed for readability only.
+// separate from the Oʻahu pages. Every curve is the data's own hourly averages, smoothed for readability only.
 
 import { baseLayout, loadData, onThemeChange, plotConfig, showError, themeColors, withAlpha } from "./common.js";
 import { formatClock, halfPowerSpan, hourRangeLabel, monotoneCubic, sample } from "./bell.js";
@@ -22,13 +25,13 @@ const POWER = {
 const DAY_SETS = { weekdays: "Weekdays", all_days: "All days" };
 const ALL = "all"; // the "compare every season" view
 const REFERENCE_KW = 1000; // the PVWatts model was run for a reference array this size
-const ARRAY_KW = 4300; // Mānoa's real array nameplate (DC), what both estimates are scaled or sized to
+const ARRAY_KW = 4300; // Mānoa's real array nameplate (DC), what every estimate is scaled or sized to
 const PVWATTS_SCALE = ARRAY_KW / REFERENCE_KW; // PVWatts output scales linearly with capacity, so this scales the reference model up
 const RATED_KW = ARRAY_KW; // the array's nameplate size, for the capacity-factor tile
 
-// Two independent estimates of the same array, overlaid. Each converts its own file's watts to kW at the real 4,300
-// kW scale (the PVWatts file is a 1,000 kW reference and needs scaling up; the sensor file is already at 4,300 kW),
-// and gets its own line style so the two are distinguishable without a second color (color stays fixed to season).
+// Independent estimates of the same array, overlaid. Each converts its own file's watts to kW at the real 4,300 kW
+// scale (the PVWatts file is a 1,000 kW reference and needs scaling up; the pvlib files are already at 4,300 kW), and
+// gets its own line style and marker so they are distinguishable without a second color (color stays fixed to season).
 const SOURCES = {
   pvwatts: {
     url: "data/manoa_solar.json",
@@ -48,8 +51,17 @@ const SOURCES = {
     symbol: "diamond",
     toKw: (w) => w / 1000,
   },
+  nsrdb: {
+    url: "data/manoa_solar_nsrdb.json",
+    label: "NSRDB 2012 + pvlib",
+    short: "NSRDB",
+    dash: "dot",
+    spanDash: "longdash",
+    symbol: "square",
+    toKw: (w) => w / 1000,
+  },
 };
-const DEFAULT_SOURCES = ["pvwatts"]; // the sensor estimate is opt-in: turn it on to compare
+const DEFAULT_SOURCES = ["pvwatts"]; // the other estimates are opt-in: turn them on to compare
 
 const chartDiv = document.getElementById("chart");
 
@@ -125,6 +137,31 @@ function xAxis(t) {
   };
 }
 
+const PLOT_MARGIN = { l: 64, r: 16, t: 56, b: 44 };
+
+/** Vertical offsets (Plotly yshift, px) for labels anchored at (x, y) so that no two overlap. Each label wants to sit
+ * `above` px over its own point; working from the highest point down, a label is pushed below any already-placed label
+ * within `sameColumnHours` of it horizontally and closer than `gapPx` vertically. */
+function stackLabels(labels, pxPerKw, { above, gapPx, sameColumnHours }) {
+  const placed = [];
+  return [...labels]
+    .sort((a, b) => b.y - a.y)
+    .map((l) => {
+      let pos = l.y * pxPerKw + above;
+      for (let moved = true; moved; ) {
+        moved = false;
+        for (const p of placed) {
+          if (Math.abs(p.x - l.x) < sameColumnHours && Math.abs(p.pos - pos) < gapPx) {
+            pos = p.pos - gapPx;
+            moved = true;
+          }
+        }
+      }
+      placed.push({ x: l.x, pos });
+      return { x: l.x, y: l.y, text: l.text, yshift: pos - l.y * pxPerKw };
+    });
+}
+
 function draw(state) {
   const t = themeColors();
   const { season, power, daySet } = state;
@@ -136,20 +173,16 @@ function draw(state) {
   const shapes = [];
   const annotations = [];
 
+  const halfLabels = [];
+  const peakLabels = [];
+
   for (const sid of seasonIds) {
     const color = t[SEASON_COLORS[sid]];
     const label = SOURCES.pvwatts.data.seasons[sid].label;
 
-    // Computed once per source so the half-power labels below can be placed by which line actually sits higher,
-    // not by a fixed source order (PVWatts' half-power height isn't always above the sensor's, or vice versa).
-    const descs = Object.fromEntries(active.map((id) => [id, describe(SOURCES[id].rows[daySet][sid], power, SOURCES[id].toKw)]));
-    const higherHalfPowerSource = active
-      .filter((id) => descs[id]?.span)
-      .reduce((a, b) => (descs[b].peak > descs[a].peak ? b : a), active.find((id) => descs[id]?.span));
-
     active.forEach((sourceId, sourceIndex) => {
       const src = SOURCES[sourceId];
-      const d = descs[sourceId];
+      const d = describe(src.rows[daySet][sid], power, src.toKw);
       if (!d) return; // this source has no usable data for this season/day-set combination
 
       const traceName = compare ? (active.length > 1 ? `${label} · ${src.short}` : label) : src.label;
@@ -188,43 +221,44 @@ function draw(state) {
           ? `<b>${label}${active.length > 1 ? " · " + src.short : ""}</b> · %{customdata[0]}<br><b>%{y:,.0f} kW</b> ${POWER[power].short} power<extra></extra>`
           : "<b>%{customdata[0]}</b> · <b>%{customdata[5]}</b><br>DC power <b>%{customdata[1]:,.0f} kW</b> · AC %{customdata[2]:,.0f} kW<br>" +
             "Sunlight on the flat panels %{customdata[3]:,.0f} W/m²" +
-            (sourceId === "sensor" ? "<br>Averaged over %{customdata[6]} days" : "") +
+            (sourceId !== "pvwatts" ? "<br>Averaged over %{customdata[6]} days" : "") +
             "<extra></extra>",
       });
 
       if (!compare) {
-        // How many hours the day stays at half its peak power or more, marked directly on the curve. With two
-        // estimates active their half-power heights often sit close together, so each source gets its own dash
-        // pattern and the labels are pushed apart (one above its line, one below) instead of both drifting upward
-        // into the same spot.
+        // How many hours the day stays at half its peak power or more, marked directly on the curve. Each source's
+        // line gets its own dash pattern; the labels are placed afterwards by stackLabels so none overlap.
         if (d.span) {
           shapes.push({
             type: "line", xref: "x", yref: "y", x0: d.span.start, x1: d.span.end, y0: d.peak / 2, y1: d.peak / 2,
             line: { color, width: 1.5, dash: src.spanDash },
           });
-          annotations.push({
-            x: (d.span.start + d.span.end) / 2, y: d.peak / 2, yshift: sourceId === higherHalfPowerSource ? 14 : -14,
-            xref: "x", yref: "y", showarrow: false,
+          halfLabels.push({
+            x: (d.span.start + d.span.end) / 2, y: d.peak / 2,
             text: `${active.length > 1 ? src.short + ": " : ""}${d.span.width.toFixed(1)} hours at half power or more`,
-            font: { size: 12, color: t.textPrimary },
-            bgcolor: withAlpha(t.surface, 0.85), borderpad: 2,
           });
         }
-        annotations.push({
-          x: d.centers[d.peakIndex], y: d.peak, xref: "x", yref: "y", yshift: 30, showarrow: false, align: "center",
+        peakLabels.push({
+          x: d.centers[d.peakIndex], y: d.peak,
           text: `<b>${fmtKw(d.peak)}</b>${active.length > 1 ? " " + src.short : ""}<br>peak, ${hourRangeLabel(d.peakHour)}`,
-          font: { size: 12, color: t.textPrimary },
-          bgcolor: withAlpha(t.surface, 0.85), borderpad: 2,
         });
       }
     });
   }
 
+  // With several estimates their peaks and half-power heights often sit close together. Labels are placed from the
+  // highest down, each nudged below any label it would collide with, so none overlap however the lines are ordered.
+  const plotHeightPx = chartDiv.clientHeight - PLOT_MARGIN.t - PLOT_MARGIN.b;
+  const pxPerKw = plotHeightPx / yMax;
+  const labelStyle = { xref: "x", yref: "y", showarrow: false, align: "center", font: { size: 12, color: t.textPrimary }, bgcolor: withAlpha(t.surface, 0.85), borderpad: 2 };
+  for (const l of stackLabels(halfLabels, pxPerKw, { above: 14, gapPx: 24, sameColumnHours: Infinity })) annotations.push({ ...labelStyle, ...l });
+  for (const l of stackLabels(peakLabels, pxPerKw, { above: 30, gapPx: 42, sameColumnHours: 2.2 })) annotations.push({ ...labelStyle, ...l });
+
   const layout = {
     ...baseLayout(t),
     showlegend: true,
     legend: { orientation: "h", x: 0, y: 1.02, yanchor: "bottom", font: { size: 12 } },
-    margin: { l: 64, r: 16, t: 56, b: 44 },
+    margin: PLOT_MARGIN,
     hovermode: "closest",
     hoverdistance: 14,
     xaxis: xAxis(t),
@@ -253,7 +287,9 @@ function renderHeader(state) {
   const data = SOURCES.pvwatts.data;
   const who = daySet === "weekdays" ? "weekday" : "day";
   const active = activeSourceIds(state);
-  const showing = active.length === Object.keys(SOURCES).length ? "Both estimates shown, overlaid." : `Showing: ${SOURCES[active[0]]?.label ?? "none"}.`;
+  const showing = active.length > 1
+    ? `Overlaid: ${active.map((id) => SOURCES[id].label).join(", ")}.`
+    : `Showing: ${SOURCES[active[0]]?.label ?? "none"}.`;
   document.getElementById("subtitle").textContent =
     (season === ALL
       ? `All four seasons compared: the average ${who} of each, for the ${ARRAY_KW.toLocaleString("en-US")} kW of panels lying flat at UH Mānoa.`
@@ -424,7 +460,7 @@ function addNote(list, lead, text) {
   list.append(li);
 }
 
-function renderText(data, sensorData) {
+function renderText(data, sensorData, nsrdbData) {
   const a = data.assumptions;
   const cell = data.site.weather_cell;
   const q = data.site.query;
@@ -441,11 +477,16 @@ function renderText(data, sensorData) {
       `kilowatts (${(ARRAY_KW / 1000).toFixed(1)} megawatts) of panels at the University of Hawaiʻi at Mānoa, averaged over the days of a season.`
   );
   p(
-    "There are two independent estimates, and the “Estimate” toggle above the chart shows either or both at once: " +
-      "the PVWatts model (a satellite-derived typical year, run through NREL's hosted power model) and Sensor + pvlib " +
-      "(the campus's real ground sensor, run through pvlib's own implementation of the same PVWatts equations). They " +
-      "share an array size and electrical assumptions, but not a data source or a code path, so where they agree is " +
-      "more convincing than either alone, and where they disagree is informative too."
+    "There are three independent estimates, and the “Estimate” toggle above the chart shows any of them, alone or " +
+      "overlaid: the PVWatts model (a satellite-derived typical year, run through NREL's hosted power model), Sensor + " +
+      "pvlib (the campus's real ground sensor in 2012, run through pvlib's own implementation of the same PVWatts " +
+      "equations), and NSRDB 2012 + pvlib (NREL's satellite estimate of the sunlight in that same real year, run " +
+      "through exactly the same pvlib code as the sensor). All three share an array size and electrical assumptions."
+  );
+  p(
+    "The comparisons are built to isolate one cause each. Sensor vs. NSRDB 2012: same year, same physics, so any gap is " +
+      "ground-measured vs. satellite-estimated sunlight. NSRDB 2012 vs. PVWatts: both satellite-based, so the gap is " +
+      "mostly one real year vs. a composite typical year."
   );
   p(
     "The dots are each estimate's own hourly averages; the line is a smooth curve drawn through those exact points, for " +
@@ -470,14 +511,14 @@ function renderText(data, sensorData) {
   addNote(
     list,
     "What the array is.",
-    `Both estimates use ${ARRAY_KW.toLocaleString("en-US")} kW (DC), Mānoa's real nameplate capacity, lying flat (tilt ${a.tilt_deg}°), with no system losses (${a.losses_pct}%). ` +
+    `Every estimate uses ${ARRAY_KW.toLocaleString("en-US")} kW (DC), Mānoa's real nameplate capacity, lying flat (tilt ${a.tilt_deg}°), with no system losses (${a.losses_pct}%). ` +
       "A real installation would be tilted and would lose part of its output to wiring, dust and heat, so treat the size of the curve as an ideal upper reference; " +
       "the timing and shape are the point."
   );
   addNote(
     list,
     "DC and AC.",
-    `DC is what the panels produce; AC is what is left after the inverter. Both models cap AC at ${fmtKw(SOURCES.pvwatts.toKw(data.annual_summary.ac_max_w))}, so on the sunniest hours AC is flattened. ` +
+    `DC is what the panels produce; AC is what is left after the inverter. Every model caps AC at ${fmtKw(SOURCES.pvwatts.toKw(data.annual_summary.ac_max_w))}, so on the sunniest hours AC is flattened. ` +
       (acShare ? `Over a year of the PVWatts model AC is ${(acShare * 100).toFixed(1)}% of DC. ` : "") +
       "The AC curve is a little lower and rounder than DC."
   );
@@ -506,7 +547,7 @@ function renderText(data, sensorData) {
   addNote(
     list,
     "Time.",
-    `${data.meta.time_zone}. Each dot is the average for the hour that begins at that time (the 12–1 PM dot sits at 12:30). This labeling is assumed for both estimates, not confirmed against NREL's or the sensor logger's documentation.`
+    `${data.meta.time_zone}. Each dot is the average for the hour that begins at that time (the 12–1 PM dot sits at 12:30). For NSRDB this is how the file is stamped (each hour's value at H:30); for PVWatts and the sensor logger it is assumed, not confirmed against their documentation.`
   );
 
   if (sensorData) {
@@ -529,10 +570,32 @@ function renderText(data, sensorData) {
     );
   }
 
+  if (nsrdbData) {
+    const g = nsrdbData.grid_cell;
+    const offset = `UTC${g.local_time_zone < 0 ? "−" : "+"}${Math.abs(g.local_time_zone)}`;
+    addNote(
+      list,
+      "NSRDB's time zone.",
+      `NSRDB stores its data in UTC; this page's copy was requested in local standard time, and the downloaded file's own ` +
+        `header confirms it: ${offset}, Hawaiʻi Standard Time, which never observes daylight saving. So a 12:30 PM value on ` +
+        "the NSRDB line is 12:30 PM on a Honolulu clock, and the same clock the PVWatts line uses. Each hourly value is " +
+        "stamped at the half hour (12:30 for the 12–1 PM hour)."
+    );
+    addNote(
+      list,
+      "NSRDB 2012.",
+      `Every hour of ${nsrdbData.annual_summary.hours.toLocaleString("en-US")} in 2012 (a leap year), from NREL's GOES-satellite dataset, grid cell ${g.location_id} ` +
+        `centred at ${g.cell_lat}, ${g.cell_lon}: no logger window and no missing months, so every season averages its full set of days. ` +
+        `It totals ${Math.round(nsrdbData.annual_summary.annual_ghi_kwh_per_m2).toLocaleString("en-US")} kWh/m² of sunshine for the year. ` +
+        "NSRDB also supplies air temperature and wind, but cells are held at 25 degC exactly as for the sensor, so the two pvlib lines differ only in their sunlight."
+    );
+  }
+
   document.getElementById("source").textContent =
     `Source: ${data.meta.source}; a ${a.system_capacity_kw_dc.toLocaleString("en-US")} kW (DC) reference array scaled ×${PVWATTS_SCALE.toFixed(1)} to Mānoa's ${ARRAY_KW.toLocaleString("en-US")} kW capacity, tilt ${a.tilt_deg}°, azimuth ${a.azimuth_deg}°, losses ${a.losses_pct}%. ` +
     (sensorData ? `Sensor + pvlib source: ${sensorData.meta.source}. ` : "") +
-    `Full data in data/manoa/ (PVWatts) and data/manoa/sensor_pvlib/ (sensor + pvlib), alongside the raw sensor readings in data/manoa/sensor/. ` +
+    (nsrdbData ? `NSRDB 2012 + pvlib source: ${nsrdbData.meta.source}. ` : "") +
+    `Full data in data/manoa/ (PVWatts), data/manoa/sensor_pvlib/ (sensor + pvlib) and data/manoa/nsrdb_pvlib/ (NSRDB + pvlib), alongside the raw sensor readings in data/manoa/sensor/. ` +
     `Data refreshed ${data.meta.generated_at.slice(0, 10)}. Separate from the Oʻahu grid pages.`;
 }
 
@@ -553,12 +616,13 @@ async function main() {
     throw new Error("The Plotly library could not be loaded (it is fetched from cdn.plot.ly, so this needs internet access).");
   }
 
-  // Both estimates are always loaded (so toggling is instant and offline-safe); which ones are drawn is a view choice.
-  const [pvwattsData, sensorData] = await Promise.all(Object.values(SOURCES).map((s) => loadData(s.url)));
-  SOURCES.pvwatts.data = pvwattsData;
-  SOURCES.pvwatts.rows = groupRows(pvwattsData.rows);
-  SOURCES.sensor.data = sensorData;
-  SOURCES.sensor.rows = groupRows(sensorData.rows);
+  // Every estimate is always loaded (so toggling is instant and offline-safe); which ones are drawn is a view choice.
+  const loaded = await Promise.all(Object.values(SOURCES).map((s) => loadData(s.url)));
+  Object.values(SOURCES).forEach((src, i) => {
+    src.data = loaded[i];
+    src.rows = groupRows(loaded[i].rows);
+  });
+  const pvwattsData = SOURCES.pvwatts.data;
 
   // One fixed height for every view of a power type, so switching seasons or toggling a source compares like with like.
   const yMax = {};
@@ -567,7 +631,7 @@ async function main() {
     yMax[id] = Math.ceil((Math.max(...values) * 1.2) / 100) * 100;
   }
 
-  // ?season=<id|all>, ?power=dc|ac, ?days=weekdays|all_days and ?sources=pvwatts,sensor choose what to show.
+  // ?season=<id|all>, ?power=dc|ac, ?days=weekdays|all_days and ?sources=pvwatts,sensor,nsrdb choose what to show.
   const params = new URLSearchParams(location.search);
   const richest = Object.keys(pvwattsData.seasons).reduce((a, b) =>
     describe(SOURCES.pvwatts.rows.weekdays[b], "dc", SOURCES.pvwatts.toKw).energy >
@@ -596,7 +660,7 @@ async function main() {
     return draw(state);
   };
 
-  renderText(pvwattsData, sensorData);
+  renderText(pvwattsData, SOURCES.sensor.data, SOURCES.nsrdb.data);
   await refresh();
   onThemeChange(() => draw(state));
   window.__manoa = state; // exposed for the browser tests

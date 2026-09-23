@@ -151,6 +151,7 @@ Other options:
 | `python -m pipeline.run_plants --skip-fetch` | Rebuild `plants.json` from the cache with no network. |
 | `python -m pipeline.run_site_solar` | The **Mānoa PVWatts model** (a separate dataset, see below): fetch if needed, check, and write `data/manoa/`. `--skip-fetch` rebuilds from the cache; `--refresh-data` asks NREL again; `--site <id>` picks another `pvwatts_sites` entry. |
 | `python -m sensor_model.run` | The **second Mānoa estimate** (see below): the real ground sensor run through pvlib, no network needed. Writes `data/manoa/sensor_pvlib/` and `web/data/manoa_solar_sensor.json`. Shares no code with `pipeline/`. |
+| `python -m nsrdb_model.run` | The **third Mānoa estimate**: NREL's NSRDB satellite irradiance for 2012, through the same pvlib code as the sensor. Downloads once (needs `NREL_API_KEY` and `NSRDB_EMAIL` in `.env`), then reuses the saved file; `--refresh-data` downloads again. Writes `data/manoa/nsrdb_pvlib/` and `web/data/manoa_solar_nsrdb.json`. |
 | `python -m pytest` | Run the Python tests (the pipeline: fetching, caching, calculations). Two live-API tests are skipped unless `RUN_LIVE_TESTS=1`. |
 | `node --test "tests/js/*.test.mjs"` | Run the JavaScript tests (the battery scheduler and the Mānoa page's curve-smoothing maths). Needs [Node.js](https://nodejs.org) 22 or newer (tested on 24); no packages to install. |
 | `python tests/browser/run_browser_tests.py` | Click through the real pages in a headless browser (buttons, sliders, zoom, phone width). Needs Edge, Chrome or Chromium and `pip install websocket-client`; add `--shots some_folder` to save screenshots. Slower, so run it when you change something under `web/`. |
@@ -203,7 +204,7 @@ pipeline/                 Tier 1 (monthly renewable share)
 
   (cache.py holds the tables for all tiers.)
 
-sensor_model/             A second, independent Mānoa estimate (see "Two independent Mānoa estimates" below).
+sensor_model/             A second, independent Mānoa estimate (see "Independent Mānoa estimates" below).
                           Shares no code with pipeline/: different input (a real sensor, not NREL), different
                           library (pvlib, not a network call), and its own output files.
   config.py               Where the raw sensor file, exports and array assumptions live; seasons read straight
@@ -214,12 +215,21 @@ sensor_model/             A second, independent Mānoa estimate (see "Two indepe
   export.py               OUTPUT: writes data/manoa/sensor_pvlib/ and web/data/manoa_solar_sensor.json.
   run.py                  Runs those steps in order (python -m sensor_model.run).
 
+nsrdb_model/              A third Mānoa estimate: NSRDB satellite irradiance for 2012, through sensor_model's own
+                          array, pvlib power model and seasonal averaging (imported, not copied).
+  config.py               Dataset, year, where the download and exports live; credentials from .env.
+  fetch.py                FETCH: one year for one point from NSRDB's download API (key and email never leak into errors).
+  parse.py                NSRDB's CSV -> hourly rows, and plausibility checks (full leap year, UTC-10, dark at night).
+  export.py               OUTPUT: writes data/manoa/nsrdb_pvlib/ and web/data/manoa_solar_nsrdb.json.
+  run.py                  Runs those steps in order (python -m nsrdb_model.run).
+
 data/raw/eia_raw.sqlite   The cache (created on first run, not committed to Git).
                           Raw data only; computed values never go in here.
 data/manoa/               The Mānoa PVWatts model's own exports (see "The Mānoa PVWatts model" below).
 data/manoa/sensor/        Real ground-sensor irradiance readings for Mānoa. See data/manoa/README.md.
 data/manoa/sensor_pvlib/  The second estimate's own exports, built from that sensor by sensor_model/ (see
-                          "Two independent Mānoa estimates" below).
+                          "Independent Mānoa estimates" below).
+data/manoa/nsrdb_pvlib/   The third estimate's exports, and raw/ with the saved NSRDB download and what was asked.
 
 web/
   index.html              Tier 1 page: renewable share over time.
@@ -243,11 +253,12 @@ web/
   data/curtailment.json       Tier 3 output. Committed too.
   data/plants.json            Plant-map / battery-fleet output. Committed too.
   data/manoa_solar.json       The PVWatts estimate (see "The Mānoa PVWatts model").
-  data/manoa_solar_sensor.json  The sensor + pvlib estimate (see "Two independent Mānoa estimates").
+  data/manoa_solar_sensor.json  The sensor + pvlib estimate (see "Independent Mānoa estimates").
+  data/manoa_solar_nsrdb.json   The NSRDB 2012 + pvlib estimate (same section).
   data/milestones.json        The ten events marked on the Tier 1 chart. Written by hand, not by the pipeline.
 
 tests/                    test_*.py: Python tests for fetching, caching and the calculations, including
-                          test_sensor_model.py for sensor_model/.
+                          test_sensor_model.py and test_nsrdb_model.py for the two pvlib estimates.
   js/dispatch.test.mjs    JavaScript tests for the battery scheduler (run with node).
   browser/                Click-through tests of the real pages in a headless browser.
 
@@ -632,7 +643,7 @@ layer because Plotly's needs WebGL, which some browsers and locked-down machines
 ## The Mānoa PVWatts model (a separate dataset)
 
 **What it is.** A modeled series of sunlight and solar power at UH Mānoa's coordinates, one of two independent estimates
-the site's page overlays (see "Two independent Mānoa estimates" below for the other, sensor-based one). It is **not**
+the site's page overlays (see "Independent Mānoa estimates" below for the sensor- and NSRDB-based ones). It is **not**
 part of the Oʻahu duck curve or any Oʻahu page: it is cached in tables of its own, and its full data is written to
 `data/manoa/`. Only the site's own **Mānoa solar** page (`manoa.html`) reads it, through a small file of its own,
 `web/data/manoa_solar.json`; the duck-curve files are never involved. Run it with `python -m pipeline.run_site_solar`.
@@ -641,9 +652,9 @@ part of the Oʻahu duck curve or any Oʻahu page: it is cached in tables of its 
 panels over an average day (PVWatts itself was run for a 1,000 kW reference array; the page scales every number up ×4.3,
 since PVWatts output scales linearly with capacity), with the model's own hourly averages as dots and a smooth line
 traced through those exact points (for readability only - it is not a fitted or idealized curve of any assumed shape).
-Choose an **estimate** (PVWatts, the sensor + pvlib one, or both overlaid), a **season** (or compare all four), **DC**
+Choose **estimates** (PVWatts, sensor + pvlib, NSRDB 2012 + pvlib: any one, or several overlaid), a **season** (or compare all four), **DC**
 power (the panels) or **AC** (after the inverter), and **weekdays** or **all days**; `?season=summer|all`, `?power=ac`,
-`?days=all_days` and `?sources=pvwatts,sensor` in the address pick a view. The tiles give the peak, the day's energy,
+`?days=all_days` and `?sources=pvwatts,sensor,nsrdb` in the address pick a view. The tiles give the peak, the day's energy,
 how many hours output stays at half its peak or more, the capacity factor (average power over the day, as a share
 of the array's rating), and peak sun hours (PSH) - that day's sunlight in kWh/m², independent of array size, the same
 figure installers use for a back-of-envelope estimate (system size × PSH × a real-world derate ≈ that day's kWh) - all
@@ -691,9 +702,9 @@ test that feeds one series through both this code and `compute_duck_curve` and r
 Oʻahu-wide PVWatts call is pinned by a regression test in `tests/test_fetch_hourly.py`. Two opt-in tests call the real API:
 `RUN_LIVE_TESTS=1 python -m pytest tests/test_site_solar_live.py`.
 
-## Two independent Mānoa estimates
+## Independent Mānoa estimates
 
-**What it is.** A second, independent estimate of Mānoa's solar power, alongside the PVWatts model above. It shares no
+**Sensor + pvlib.** A second, independent estimate of Mānoa's solar power, alongside the PVWatts model above. It shares no
 code, cache or output file with `pipeline/`: it starts from the campus's own real ground sensor
 (`data/manoa/sensor/sunny_irradiance_2011_2012.csv`, 5-minute irradiance readings, 3 Jan-25 Oct 2012) instead of a
 satellite weather API, and turns it into power with [pvlib](https://pvlib-python.readthedocs.io/)'s own implementation
@@ -709,15 +720,42 @@ have no days at all). Where the two curves agree is more convincing than either 
 sensor's winter peak, from a thin 51-day sample, comes out *higher* than the modeled typical year's) is informative
 too, not necessarily an error in either.
 
-**The page.** `manoa.html`'s **Estimate** toggle shows either curve alone or both overlaid (color still means season;
-a dashed line means the sensor + pvlib estimate, solid means PVWatts). At least one estimate is always shown - the
-toggle refuses to switch off the last one. Hours with no sensor data (night, or a thin gap) are left out of that curve
-entirely rather than drawn as zero, so the sensor curve's own width is part of what it is telling you.
+**NSRDB 2012 + pvlib.** A third estimate that sits between the other two. It takes NREL's NSRDB satellite irradiance
+for the real year 2012 (dataset `nsrdb-GOES-aggregated-v4-0-0`, the GOES-West family PVWatts' Mānoa weather also comes
+from; 60-minute values in local standard time, all 8,784 hours of the leap year) and runs it through `sensor_model`'s
+array, pvlib power model and seasonal averaging, imported unchanged. Cells are held at 25 °C exactly as for the sensor,
+even though NSRDB supplies air temperature and wind. So each pair differs in one main way:
+
+* **Sensor vs. NSRDB 2012:** same year, same code; the only difference is ground-measured vs. satellite-estimated sunlight.
+* **NSRDB 2012 vs. PVWatts:** both satellite-based; the difference is mostly a real year vs. a composite typical year
+  (plus PVWatts' own thermal model, since PVWatts is run with its default temperature handling).
+
+Build it with `python -m nsrdb_model.run`. The first run downloads about 460 KB and needs `NREL_API_KEY` and
+`NSRDB_EMAIL` in `.env` (NSRDB requires an email with every request); the file is saved in
+`data/manoa/nsrdb_pvlib/raw/` with the parameters that were sent (never the key or email), and reused until those
+parameters change or `--refresh-data` is given. Before anything is exported the year must pass checks: 8,784 hours,
+UTC-10 timestamps, every value stamped at the half hour, no light while the sun is well below the horizon, and a
+plausible annual total. 2012 came to 1,957 kWh/m² (the PVWatts typical year: about 2,010).
+
+**An open question about the sensor's clock.** Lined up against NSRDB for the same 2012 hours, the ground sensor's day
+runs about 1.5 hours early: it peaks at 11 AM-12 PM while NSRDB peaks at 12-2 PM (Honolulu's solar noon is about
+12:30-12:45 HST), and on 132 of its 196 days it reads real light before computed sunrise. Shifting its timestamps
+later lines it up best with clear-sky curves at about +75 minutes. This has **not** been corrected: the sensor line is
+drawn from its timestamps as recorded, until the logger's actual time base is confirmed.
+
+**The page.** `manoa.html`'s **Estimate** toggle shows any of the curves alone or several overlaid (color still means
+season; solid is PVWatts, dashed is the sensor, dotted is NSRDB, each with its own marker shape). At least one estimate
+is always shown - the toggle refuses to switch off the last one. Hours with no sensor data (night, or a thin gap) are
+left out of that curve entirely rather than drawn as zero, so the sensor curve's own width is part of what it is
+telling you. Peak and half-power labels are stacked so none overlap, however many estimates are on.
 
 **Tests.** `tests/test_sensor_model.py` covers the 5-minute-to-hourly averaging (and its completeness threshold), the
 pvlib power model (including that its inverter cap matches the PVWatts model's own, at the same reference capacity - a
-cross-check that the two estimates truly share their electrical assumptions), the seasonal averaging against real 2012
-weekdays, and the web JSON's shape. `tests/browser/run_browser_tests.py`'s Mānoa section covers the toggle itself.
+cross-check that the estimates truly share their electrical assumptions), the seasonal averaging against real 2012
+weekdays, and the web JSON's shape. `tests/test_nsrdb_model.py` covers NSRDB's file layout, every plausibility check
+(each on a synthetic year built to fail it), that the NSRDB line really runs through the sensor line's code, and that
+neither the key nor the email can leak into an error or the saved request. `tests/browser/run_browser_tests.py`'s
+Mānoa section covers the toggle, all three lines together, and that no chart labels overlap.
 
 ## Adding another island later
 

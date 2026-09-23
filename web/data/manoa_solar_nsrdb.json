@@ -1,0 +1,1819 @@
+{
+ "meta": {
+  "dataset": "manoa_solar_nsrdb",
+  "kind": "satellite-derived irradiance, simulated power",
+  "generated_at": "2026-09-23T01:28:17+00:00",
+  "source": "NREL NSRDB nsrdb-GOES-aggregated-v4-0-0 (2012, 60-minute, grid cell 25243), power via pvlib 0.15.2 (pvlib.pvsystem.pvwatts_dc, pvlib.inverter.pvwatts)",
+  "time_zone": "Hawaii Standard Time (no daylight saving)",
+  "hour_convention": "hour beginning (12 = 12:00-1:00 PM); NSRDB's value for that hour is stamped at 12:30.",
+  "day_sets": {
+   "weekdays": "Monday-Friday of the real 2012 calendar",
+   "all_days": "every day of the season in 2012; sunlight has no weekday pattern, so this is less noisy"
+  },
+  "full_dataset": "data/manoa/nsrdb_pvlib/ (JSON, CSV, and the raw NSRDB download)"
+ },
+ "grid_cell": {
+  "location_id": "25243",
+  "cell_lat": 21.29,
+  "cell_lon": -157.82,
+  "elevation_m": 40.0,
+  "local_time_zone": -10
+ },
+ "assumptions": {
+  "capacity_kw_dc": 4300.0,
+  "tilt_deg": 0.0,
+  "dc_ac_ratio": 1.2,
+  "eta_inv_nom": 0.96,
+  "eta_inv_ref": 0.9637,
+  "gamma_pdc": -0.0047,
+  "assumed_cell_temp_c": 25.0
+ },
+ "annual_summary": {
+  "hours": 8784,
+  "annual_ghi_kwh_per_m2": 1956.552,
+  "peak_ghi_wm2": 1064.0,
+  "annual_dc_mwh": 8413.174,
+  "annual_ac_mwh": 7850.041,
+  "ac_max_w": 3583333.333
+ },
+ "seasons": {
+  "winter": {
+   "label": "Winter",
+   "months": [
+    12,
+    1,
+    2
+   ],
+   "days": {
+    "weekdays": 64,
+    "all_days": 91
+   }
+  },
+  "spring": {
+   "label": "Spring",
+   "months": [
+    3,
+    4,
+    5
+   ],
+   "days": {
+    "weekdays": 66,
+    "all_days": 92
+   }
+  },
+  "summer": {
+   "label": "Summer",
+   "months": [
+    6,
+    7,
+    8
+   ],
+   "days": {
+    "weekdays": 66,
+    "all_days": 92
+   }
+  },
+  "fall": {
+   "label": "Fall",
+   "months": [
+    9,
+    10,
+    11
+   ],
+   "days": {
+    "weekdays": 65,
+    "all_days": 91
+   }
+  }
+ },
+ "rows": [
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 0,
+   "n_days": 64,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 1,
+   "n_days": 64,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 2,
+   "n_days": 64,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 3,
+   "n_days": 64,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 4,
+   "n_days": 64,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 5,
+   "n_days": 64,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 6,
+   "n_days": 64,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 7,
+   "n_days": 64,
+   "poa_wm2": 45.5,
+   "dc_w": 195717.0,
+   "ac_w": 170072.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 8,
+   "n_days": 64,
+   "poa_wm2": 193.0,
+   "dc_w": 829967.0,
+   "ac_w": 789682.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 9,
+   "n_days": 64,
+   "poa_wm2": 319.1,
+   "dc_w": 1372170.0,
+   "ac_w": 1315656.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 10,
+   "n_days": 64,
+   "poa_wm2": 469.5,
+   "dc_w": 2018716.0,
+   "ac_w": 1940490.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 11,
+   "n_days": 64,
+   "poa_wm2": 582.0,
+   "dc_w": 2502466.0,
+   "ac_w": 2405946.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 12,
+   "n_days": 64,
+   "poa_wm2": 568.2,
+   "dc_w": 2443341.0,
+   "ac_w": 2338284.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 13,
+   "n_days": 64,
+   "poa_wm2": 590.9,
+   "dc_w": 2540964.0,
+   "ac_w": 2438013.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 14,
+   "n_days": 64,
+   "poa_wm2": 506.0,
+   "dc_w": 2175934.0,
+   "ac_w": 2091233.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 15,
+   "n_days": 64,
+   "poa_wm2": 376.6,
+   "dc_w": 1619488.0,
+   "ac_w": 1555076.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 16,
+   "n_days": 64,
+   "poa_wm2": 242.0,
+   "dc_w": 1040802.0,
+   "ac_w": 994456.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 17,
+   "n_days": 64,
+   "poa_wm2": 83.7,
+   "dc_w": 359856.0,
+   "ac_w": 330703.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 18,
+   "n_days": 64,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 19,
+   "n_days": 64,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 20,
+   "n_days": 64,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 21,
+   "n_days": 64,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 22,
+   "n_days": 64,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "winter",
+   "hour": 23,
+   "n_days": 64,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 0,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 1,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 2,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 3,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 4,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 5,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 6,
+   "n_days": 66,
+   "poa_wm2": 36.4,
+   "dc_w": 156689.0,
+   "ac_w": 139045.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 7,
+   "n_days": 66,
+   "poa_wm2": 168.8,
+   "dc_w": 726048.0,
+   "ac_w": 688061.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 8,
+   "n_days": 66,
+   "poa_wm2": 341.1,
+   "dc_w": 1466821.0,
+   "ac_w": 1406707.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 9,
+   "n_days": 66,
+   "poa_wm2": 488.1,
+   "dc_w": 2098661.0,
+   "ac_w": 2015168.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 10,
+   "n_days": 66,
+   "poa_wm2": 644.1,
+   "dc_w": 2769721.0,
+   "ac_w": 2609075.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 11,
+   "n_days": 66,
+   "poa_wm2": 722.7,
+   "dc_w": 3107792.0,
+   "ac_w": 2783469.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 12,
+   "n_days": 66,
+   "poa_wm2": 785.9,
+   "dc_w": 3379279.0,
+   "ac_w": 2903537.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 13,
+   "n_days": 66,
+   "poa_wm2": 780.1,
+   "dc_w": 3354521.0,
+   "ac_w": 2939842.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 14,
+   "n_days": 66,
+   "poa_wm2": 678.5,
+   "dc_w": 2917615.0,
+   "ac_w": 2761634.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 15,
+   "n_days": 66,
+   "poa_wm2": 535.8,
+   "dc_w": 2303953.0,
+   "ac_w": 2213607.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 16,
+   "n_days": 66,
+   "poa_wm2": 387.0,
+   "dc_w": 1664035.0,
+   "ac_w": 1598284.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 17,
+   "n_days": 66,
+   "poa_wm2": 205.1,
+   "dc_w": 881826.0,
+   "ac_w": 840001.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 18,
+   "n_days": 66,
+   "poa_wm2": 39.9,
+   "dc_w": 171479.0,
+   "ac_w": 146728.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 19,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 20,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 21,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 22,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "spring",
+   "hour": 23,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 0,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 1,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 2,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 3,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 4,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 5,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 6,
+   "n_days": 66,
+   "poa_wm2": 61.1,
+   "dc_w": 262821.0,
+   "ac_w": 235817.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 7,
+   "n_days": 66,
+   "poa_wm2": 223.7,
+   "dc_w": 961962.0,
+   "ac_w": 918092.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 8,
+   "n_days": 66,
+   "poa_wm2": 392.7,
+   "dc_w": 1688792.0,
+   "ac_w": 1622408.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 9,
+   "n_days": 66,
+   "poa_wm2": 591.9,
+   "dc_w": 2545144.0,
+   "ac_w": 2446963.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 10,
+   "n_days": 66,
+   "poa_wm2": 670.8,
+   "dc_w": 2884323.0,
+   "ac_w": 2748647.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 11,
+   "n_days": 66,
+   "poa_wm2": 777.3,
+   "dc_w": 3342533.0,
+   "ac_w": 2970731.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 12,
+   "n_days": 66,
+   "poa_wm2": 849.0,
+   "dc_w": 3650765.0,
+   "ac_w": 3114036.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 13,
+   "n_days": 66,
+   "poa_wm2": 871.9,
+   "dc_w": 3749274.0,
+   "ac_w": 3211492.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 14,
+   "n_days": 66,
+   "poa_wm2": 790.2,
+   "dc_w": 3397977.0,
+   "ac_w": 3169882.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 15,
+   "n_days": 66,
+   "poa_wm2": 655.7,
+   "dc_w": 2819302.0,
+   "ac_w": 2710326.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 16,
+   "n_days": 66,
+   "poa_wm2": 488.0,
+   "dc_w": 2098270.0,
+   "ac_w": 2018653.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 17,
+   "n_days": 66,
+   "poa_wm2": 286.3,
+   "dc_w": 1231298.0,
+   "ac_w": 1180301.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 18,
+   "n_days": 66,
+   "poa_wm2": 84.0,
+   "dc_w": 361395.0,
+   "ac_w": 332339.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 19,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 20,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 21,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 22,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "summer",
+   "hour": 23,
+   "n_days": 66,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 0,
+   "n_days": 65,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 1,
+   "n_days": 65,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 2,
+   "n_days": 65,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 3,
+   "n_days": 65,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 4,
+   "n_days": 65,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 5,
+   "n_days": 65,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 6,
+   "n_days": 65,
+   "poa_wm2": 5.9,
+   "dc_w": 25271.0,
+   "ac_w": 16745.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 7,
+   "n_days": 65,
+   "poa_wm2": 130.9,
+   "dc_w": 562705.0,
+   "ac_w": 529010.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 8,
+   "n_days": 65,
+   "poa_wm2": 298.7,
+   "dc_w": 1284377.0,
+   "ac_w": 1230855.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 9,
+   "n_days": 65,
+   "poa_wm2": 459.7,
+   "dc_w": 1976743.0,
+   "ac_w": 1899942.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 10,
+   "n_days": 65,
+   "poa_wm2": 575.8,
+   "dc_w": 2476072.0,
+   "ac_w": 2379080.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 11,
+   "n_days": 65,
+   "poa_wm2": 641.8,
+   "dc_w": 2759806.0,
+   "ac_w": 2584563.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 12,
+   "n_days": 65,
+   "poa_wm2": 665.5,
+   "dc_w": 2861485.0,
+   "ac_w": 2648661.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 13,
+   "n_days": 65,
+   "poa_wm2": 657.5,
+   "dc_w": 2827217.0,
+   "ac_w": 2656320.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 14,
+   "n_days": 65,
+   "poa_wm2": 532.2,
+   "dc_w": 2288526.0,
+   "ac_w": 2198222.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 15,
+   "n_days": 65,
+   "poa_wm2": 424.2,
+   "dc_w": 1823994.0,
+   "ac_w": 1752155.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 16,
+   "n_days": 65,
+   "poa_wm2": 239.2,
+   "dc_w": 1028692.0,
+   "ac_w": 982295.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 17,
+   "n_days": 65,
+   "poa_wm2": 88.7,
+   "dc_w": 381311.0,
+   "ac_w": 351574.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 18,
+   "n_days": 65,
+   "poa_wm2": 2.2,
+   "dc_w": 9262.0,
+   "ac_w": 6391.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 19,
+   "n_days": 65,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 20,
+   "n_days": 65,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 21,
+   "n_days": 65,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 22,
+   "n_days": 65,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "weekdays",
+   "season": "fall",
+   "hour": 23,
+   "n_days": 65,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 0,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 1,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 2,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 3,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 4,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 5,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 6,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 7,
+   "n_days": 91,
+   "poa_wm2": 45.6,
+   "dc_w": 196052.0,
+   "ac_w": 170402.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 8,
+   "n_days": 91,
+   "poa_wm2": 184.7,
+   "dc_w": 794224.0,
+   "ac_w": 754775.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 9,
+   "n_days": 91,
+   "poa_wm2": 320.4,
+   "dc_w": 1377748.0,
+   "ac_w": 1321333.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 10,
+   "n_days": 91,
+   "poa_wm2": 464.7,
+   "dc_w": 1998130.0,
+   "ac_w": 1920544.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 11,
+   "n_days": 91,
+   "poa_wm2": 586.6,
+   "dc_w": 2522541.0,
+   "ac_w": 2425291.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 12,
+   "n_days": 91,
+   "poa_wm2": 593.2,
+   "dc_w": 2550703.0,
+   "ac_w": 2443323.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 13,
+   "n_days": 91,
+   "poa_wm2": 602.3,
+   "dc_w": 2589876.0,
+   "ac_w": 2486491.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 14,
+   "n_days": 91,
+   "poa_wm2": 504.1,
+   "dc_w": 2167767.0,
+   "ac_w": 2083499.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 15,
+   "n_days": 91,
+   "poa_wm2": 379.3,
+   "dc_w": 1630881.0,
+   "ac_w": 1566151.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 16,
+   "n_days": 91,
+   "poa_wm2": 238.4,
+   "dc_w": 1025007.0,
+   "ac_w": 979188.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 17,
+   "n_days": 91,
+   "poa_wm2": 79.5,
+   "dc_w": 341874.0,
+   "ac_w": 313122.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 18,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 19,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 20,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 21,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 22,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "winter",
+   "hour": 23,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 0,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 1,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 2,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 3,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 4,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 5,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 6,
+   "n_days": 92,
+   "poa_wm2": 36.7,
+   "dc_w": 157885.0,
+   "ac_w": 140295.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 7,
+   "n_days": 92,
+   "poa_wm2": 173.6,
+   "dc_w": 746471.0,
+   "ac_w": 707964.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 8,
+   "n_days": 92,
+   "poa_wm2": 342.2,
+   "dc_w": 1471395.0,
+   "ac_w": 1411236.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 9,
+   "n_days": 92,
+   "poa_wm2": 484.0,
+   "dc_w": 2081013.0,
+   "ac_w": 1998757.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 10,
+   "n_days": 92,
+   "poa_wm2": 638.1,
+   "dc_w": 2743680.0,
+   "ac_w": 2587050.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 11,
+   "n_days": 92,
+   "poa_wm2": 730.9,
+   "dc_w": 3142973.0,
+   "ac_w": 2800055.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 12,
+   "n_days": 92,
+   "poa_wm2": 788.2,
+   "dc_w": 3389195.0,
+   "ac_w": 2912285.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 13,
+   "n_days": 92,
+   "poa_wm2": 789.7,
+   "dc_w": 3395738.0,
+   "ac_w": 2975138.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 14,
+   "n_days": 92,
+   "poa_wm2": 685.9,
+   "dc_w": 2949520.0,
+   "ac_w": 2791542.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 15,
+   "n_days": 92,
+   "poa_wm2": 538.5,
+   "dc_w": 2315410.0,
+   "ac_w": 2224837.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 16,
+   "n_days": 92,
+   "poa_wm2": 392.0,
+   "dc_w": 1685740.0,
+   "ac_w": 1619468.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 17,
+   "n_days": 92,
+   "poa_wm2": 207.2,
+   "dc_w": 890988.0,
+   "ac_w": 848969.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 18,
+   "n_days": 92,
+   "poa_wm2": 39.7,
+   "dc_w": 170738.0,
+   "ac_w": 145978.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 19,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 20,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 21,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 22,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "spring",
+   "hour": 23,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 0,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 1,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 2,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 3,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 4,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 5,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 6,
+   "n_days": 92,
+   "poa_wm2": 60.9,
+   "dc_w": 261739.0,
+   "ac_w": 234811.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 7,
+   "n_days": 92,
+   "poa_wm2": 218.1,
+   "dc_w": 937774.0,
+   "ac_w": 894459.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 8,
+   "n_days": 92,
+   "poa_wm2": 397.8,
+   "dc_w": 1710512.0,
+   "ac_w": 1643488.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 9,
+   "n_days": 92,
+   "poa_wm2": 585.0,
+   "dc_w": 2515407.0,
+   "ac_w": 2418096.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 10,
+   "n_days": 92,
+   "poa_wm2": 675.9,
+   "dc_w": 2906520.0,
+   "ac_w": 2765234.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 11,
+   "n_days": 92,
+   "poa_wm2": 795.0,
+   "dc_w": 3418593.0,
+   "ac_w": 3020680.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 12,
+   "n_days": 92,
+   "poa_wm2": 842.7,
+   "dc_w": 3623638.0,
+   "ac_w": 3091309.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 13,
+   "n_days": 92,
+   "poa_wm2": 861.4,
+   "dc_w": 3704170.0,
+   "ac_w": 3172501.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 14,
+   "n_days": 92,
+   "poa_wm2": 794.3,
+   "dc_w": 3415696.0,
+   "ac_w": 3179976.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 15,
+   "n_days": 92,
+   "poa_wm2": 668.0,
+   "dc_w": 2872400.0,
+   "ac_w": 2761413.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 16,
+   "n_days": 92,
+   "poa_wm2": 480.9,
+   "dc_w": 2067833.0,
+   "ac_w": 1989105.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 17,
+   "n_days": 92,
+   "poa_wm2": 283.9,
+   "dc_w": 1220826.0,
+   "ac_w": 1170051.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 18,
+   "n_days": 92,
+   "poa_wm2": 85.8,
+   "dc_w": 368725.0,
+   "ac_w": 339516.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 19,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 20,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 21,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 22,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "summer",
+   "hour": 23,
+   "n_days": 92,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 0,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 1,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 2,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 3,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 4,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 5,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 6,
+   "n_days": 91,
+   "poa_wm2": 6.4,
+   "dc_w": 27596.0,
+   "ac_w": 18920.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 7,
+   "n_days": 91,
+   "poa_wm2": 134.5,
+   "dc_w": 578185.0,
+   "ac_w": 544095.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 8,
+   "n_days": 91,
+   "poa_wm2": 296.9,
+   "dc_w": 1276580.0,
+   "ac_w": 1223221.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 9,
+   "n_days": 91,
+   "poa_wm2": 436.3,
+   "dc_w": 1876170.0,
+   "ac_w": 1802549.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 10,
+   "n_days": 91,
+   "poa_wm2": 563.9,
+   "dc_w": 2424916.0,
+   "ac_w": 2330093.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 11,
+   "n_days": 91,
+   "poa_wm2": 664.8,
+   "dc_w": 2858460.0,
+   "ac_w": 2681362.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 12,
+   "n_days": 91,
+   "poa_wm2": 684.4,
+   "dc_w": 2943043.0,
+   "ac_w": 2724744.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 13,
+   "n_days": 91,
+   "poa_wm2": 668.7,
+   "dc_w": 2875424.0,
+   "ac_w": 2691184.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 14,
+   "n_days": 91,
+   "poa_wm2": 555.7,
+   "dc_w": 2389524.0,
+   "ac_w": 2295274.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 15,
+   "n_days": 91,
+   "poa_wm2": 423.4,
+   "dc_w": 1820412.0,
+   "ac_w": 1748655.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 16,
+   "n_days": 91,
+   "poa_wm2": 239.4,
+   "dc_w": 1029212.0,
+   "ac_w": 982653.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 17,
+   "n_days": 91,
+   "poa_wm2": 90.2,
+   "dc_w": 387803.0,
+   "ac_w": 357917.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 18,
+   "n_days": 91,
+   "poa_wm2": 2.5,
+   "dc_w": 10537.0,
+   "ac_w": 7451.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 19,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 20,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 21,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 22,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  },
+  {
+   "day_set": "all_days",
+   "season": "fall",
+   "hour": 23,
+   "n_days": 91,
+   "poa_wm2": 0.0,
+   "dc_w": 0.0,
+   "ac_w": 0.0
+  }
+ ]
+}

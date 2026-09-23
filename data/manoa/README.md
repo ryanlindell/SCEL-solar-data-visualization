@@ -44,3 +44,21 @@ simplification (no thermal derate), the same one the PVWatts side makes with `lo
 averages is written to `web/data/manoa_solar_sensor.json` for `manoa.html`, which reads it alongside `manoa_solar.json`
 and lets the "Estimate" toggle show either, or both overlaid.
 
+**Timing caveat.** Compared with NSRDB's satellite data for the same 2012 hours (below), the sensor's day runs about
+1.5 hours early, and on 132 of 196 days it shows light before sunrise; the best clear-sky fit is a +75-minute shift.
+The timestamps are used as recorded until the logger's time base is confirmed. See the main README.
+
+## `nsrdb_pvlib/`: NSRDB satellite irradiance for 2012, through the same pvlib code
+
+`python -m nsrdb_model.run` downloads NREL's NSRDB `nsrdb-GOES-aggregated-v4-0-0` irradiance for every hour of 2012 at
+the same point as the PVWatts model, and runs it through `sensor_model`'s array, power model and seasonal averaging
+unchanged (cells at 25°C, like the sensor). Against the sensor line the only difference is satellite vs. ground sunlight.
+
+| File | What it is |
+|---|---|
+| `raw/nsrdb_goes_v4_2012_60min.csv` | NSRDB's download as received (two metadata rows, then 8,784 hourly rows stamped at H:30) |
+| `raw/nsrdb_goes_v4_2012_60min.request.json` | The parameters sent (never the API key or email); a change triggers a fresh download |
+| `manoa_nsrdb_pvlib_model.json` | Grid cell, assumptions, a yearly summary and the seasonal typical days |
+| `manoa_nsrdb_pvlib_hourly.csv` | All 8,784 hours: GHI, DNI, DHI, temperature, wind, solar zenith, DC and AC power |
+| `manoa_nsrdb_pvlib_seasonal_averages.csv` | The seasonal typical day, same columns as the sensor's |
+

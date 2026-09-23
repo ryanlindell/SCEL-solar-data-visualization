@@ -371,8 +371,10 @@ def test_manoa(b: Browser, url: str) -> None:
     b.pause(600)
     data = b.js("fetch('data/manoa_solar.json').then(r => r.json())")
     sensor_data = b.js("fetch('data/manoa_solar_sensor.json').then(r => r.json())")
+    nsrdb_data = b.js("fetch('data/manoa_solar_nsrdb.json').then(r => r.json())")
     rows = {(r["day_set"], r["season"], r["hour"]): r for r in data["rows"]}
     sensor_rows = {(r["day_set"], r["season"], r["hour"]): r for r in sensor_data["rows"]}
+    nsrdb_rows = {(r["day_set"], r["season"], r["hour"]): r for r in nsrdb_data["rows"]}
     seasons = list(data["seasons"])
     PVWATTS_SCALE = 4.3  # the PVWatts file is a 1,000 kW reference, scaled up to Mānoa's real 4,300 kW array
 
@@ -455,11 +457,12 @@ def test_manoa(b: Browser, url: str) -> None:
     check("the table follows the view: hours down the side, one column per season",
           b.js("document.querySelectorAll('#data-table thead th').length") == 5 and b.js("document.querySelectorAll('#data-table tbody tr').length") == 24)
 
-    # ---- two estimates: PVWatts model and Sensor + pvlib, overlaid or shown alone --------------------------------------
+    # ---- three estimates: PVWatts, Sensor + pvlib and NSRDB 2012 + pvlib, overlaid or shown alone ------------------------
     b.goto(f"{url}/manoa.html?season={richest}", ready)
     b.pause(600)
     estimate = lambda: b.js("[...document.querySelectorAll('#estimate-controls button')].map(x => [x.textContent, x.getAttribute('aria-checked')])")
-    check("PVWatts is shown by default, Sensor + pvlib is opt-in", estimate() == [["PVWatts model", "true"], ["Sensor + pvlib", "false"]], str(estimate()))
+    check("PVWatts is shown by default; the sensor and NSRDB lines are opt-in",
+          estimate() == [["PVWatts model", "true"], ["Sensor + pvlib", "false"], ["NSRDB 2012 + pvlib", "false"]], str(estimate()))
     check("only one estimate drawn by default: the smooth line and its dots, nothing more", b.js("document.getElementById('chart').data.length") == 2)
 
     click(b, "document.querySelectorAll('#estimate-controls button')[1]")
@@ -487,6 +490,27 @@ def test_manoa(b: Browser, url: str) -> None:
     click(b, "document.querySelectorAll('#estimate-controls button')[0]")  # back to the default, PVWatts only
     check("the sensor's real-coverage caveat is in the notes",
           "did not run at night" in b.js("document.getElementById('notes').textContent"))
+
+    b.goto(f"{url}/manoa.html?season={richest}&sources=pvwatts,sensor,nsrdb", ready.replace("=== 5", "=== 15"))
+    b.pause(600)
+    check("?sources= can turn on all three: 6 traces and three rows of five tiles",
+          b.js("document.getElementById('chart').data.length") == 6 and b.js("document.querySelectorAll('#stats .stat').length") == 15)
+    nsrdb_dc = [nsrdb_rows[("weekdays", richest, h)]["dc_w"] / 1000 for h in range(24)]
+    nsrdb_peak_tile = b.js("document.querySelectorAll('#stats .stat-value')[10].textContent")
+    check("the NSRDB tile matches its own file's peak (already 4,300 kW; no PVWatts scaling)",
+          nsrdb_peak_tile == f"{round(max(nsrdb_dc)):,} kW", nsrdb_peak_tile)
+    check("NSRDB has every hour of the day (satellite data has no logger window)",
+          all(nsrdb_rows[("weekdays", richest, h)]["dc_w"] is not None for h in range(24)))
+    overlaps = b.js("""(() => {
+        const boxes = [...document.querySelectorAll('#chart .annotation')].map(a => a.getBoundingClientRect());
+        let n = 0;
+        for (let i = 0; i < boxes.length; i++) for (let j = i + 1; j < boxes.length; j++) {
+          const a = boxes[i], c = boxes[j];
+          if (a.left < c.right && c.left < a.right && a.top < c.bottom && c.top < a.bottom) n++;
+        }
+        return n;
+    })()""")
+    check("with three estimates overlaid, no two chart labels overlap", overlaps == 0, f"{overlaps} overlapping pairs")
 
     # ---- hover: only the dot under the pointer explains itself -----------------------------------------------------
     b.goto(f"{url}/manoa.html?season={richest}", ready)

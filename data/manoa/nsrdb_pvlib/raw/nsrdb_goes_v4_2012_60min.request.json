@@ -1,0 +1,8 @@
+{
+ "wkt": "POINT(-157.8174 21.2984)",
+ "names": "2012",
+ "interval": "60",
+ "utc": "false",
+ "leap_day": "true",
+ "attributes": "ghi,dni,dhi,air_temperature,wind_speed,solar_zenith_angle"
+}
